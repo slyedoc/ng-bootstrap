@@ -1,12 +1,12 @@
-import {fakeAsync, discardPeriodicTasks, tick, TestBed, ComponentFixture, inject} from '@angular/core/testing';
+import {Component} from '@angular/core';
+import {ComponentFixture, discardPeriodicTasks, fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+
 import {createGenericTestComponent} from '../test/common';
 
-import {By} from '@angular/platform-browser';
-import {Component} from '@angular/core';
-
-import {NgbCarouselModule} from './carousel.module';
 import {NgbCarousel, NgbSlideEvent, NgbSlideEventDirection} from './carousel';
 import {NgbCarouselConfig} from './carousel-config';
+import {NgbCarouselModule} from './carousel.module';
 
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -441,7 +441,6 @@ describe('ngb-carousel', () => {
 
 
        discardPeriodicTasks();
-
      }));
 
   it('should listen to keyevents based on keyboard attribute', fakeAsync(() => {
@@ -468,13 +467,14 @@ describe('ngb-carousel', () => {
        expectActiveSlides(fixture.nativeElement, [false, true]);
 
        discardPeriodicTasks();
-
      }));
 
   describe('Custom config', () => {
     let config: NgbCarouselConfig;
 
-    beforeEach(() => { TestBed.configureTestingModule({imports: [NgbCarouselModule.forRoot()]}); });
+    beforeEach(() => {
+      TestBed.configureTestingModule({imports: [NgbCarouselModule.forRoot()]});
+    });
 
     beforeEach(inject([NgbCarouselConfig], (c: NgbCarouselConfig) => {
       config = c;
@@ -515,7 +515,6 @@ describe('ngb-carousel', () => {
       expect(carousel.keyboard).toBe(config.keyboard);
     });
   });
-
 });
 
 @Component({selector: 'test-cmp', template: ''})

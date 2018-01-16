@@ -1,11 +1,11 @@
-import {TestBed, ComponentFixture} from '@angular/core/testing';
+import {Component} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+
 import {createGenericTestComponent} from '../test/common';
 import {getMonthSelect, getYearSelect} from '../test/datepicker/common';
 
-import {Component} from '@angular/core';
-
-import {NgbDatepickerModule} from './datepicker.module';
 import {NgbDatepickerNavigationSelect} from './datepicker-navigation-select';
+import {NgbDatepickerModule} from './datepicker.module';
 import {NgbDate} from './ngb-date';
 
 const createTestComponent = (html: string) =>
@@ -23,7 +23,6 @@ function changeSelect(element: HTMLSelectElement, value: string) {
 }
 
 describe('ngb-datepicker-navigation-select', () => {
-
   beforeEach(() => {
     TestBed.overrideModule(NgbDatepickerModule, {set: {exports: [NgbDatepickerNavigationSelect]}});
     TestBed.configureTestingModule({declarations: [TestComponent], imports: [NgbDatepickerModule.forRoot()]});
@@ -161,7 +160,6 @@ describe('ngb-datepicker-navigation-select', () => {
     expect(getMonthSelect(fixture.nativeElement).disabled).toBe(true);
     expect(getYearSelect(fixture.nativeElement).disabled).toBe(true);
   });
-
 });
 
 @Component({selector: 'test-cmp', template: ''})

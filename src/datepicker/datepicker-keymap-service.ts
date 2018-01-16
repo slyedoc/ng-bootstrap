@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
+
+import {toString} from '../util/util';
+
 import {NgbDatepickerService} from './datepicker-service';
 import {NgbCalendar} from './ngb-calendar';
-import {toString} from '../util/util';
 import {NgbDate} from './ngb-date';
 
 enum Key {

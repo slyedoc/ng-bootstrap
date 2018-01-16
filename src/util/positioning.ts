@@ -1,9 +1,13 @@
 // previous version:
 // https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
 export class Positioning {
-  private getAllStyles(element: HTMLElement) { return window.getComputedStyle(element); }
+  private getAllStyles(element: HTMLElement) {
+    return window.getComputedStyle(element);
+  }
 
-  private getStyle(element: HTMLElement, prop: string): string { return this.getAllStyles(element)[prop]; }
+  private getStyle(element: HTMLElement, prop: string): string {
+    return this.getAllStyles(element)[prop];
+  }
 
   private isStaticPositioned(element: HTMLElement): boolean {
     return (this.getStyle(element, 'position') || 'static') === 'static';
@@ -145,15 +149,16 @@ export class Positioning {
     return targetElPosition;
   }
 
-  // get the availble placements of the target element in the viewport dependeing on the host element
+  // get the availble placements of the target element in the viewport
+  // dependeing on the host element
   getAvailablePlacements(hostElement: HTMLElement, targetElement: HTMLElement): string[] {
     let availablePlacements: Array<string> = [];
     let hostElemClientRect = hostElement.getBoundingClientRect();
     let targetElemClientRect = targetElement.getBoundingClientRect();
     let html = document.documentElement;
 
-    // left: check if target width can be placed between host left and viewport start and also height of target is
-    // inside viewport
+    // left: check if target width can be placed between host left and viewport
+    // start and also height of target is inside viewport
     if (targetElemClientRect.width < hostElemClientRect.left) {
       // check for left only
       if ((hostElemClientRect.top + hostElemClientRect.height / 2 - targetElement.offsetHeight / 2) > 0) {
@@ -169,8 +174,8 @@ export class Positioning {
       this.setSecondaryPlacementForTopBottom(hostElemClientRect, targetElemClientRect, 'top', availablePlacements);
     }
 
-    // right: check if target width can be placed between host right and viewport end and also height of target is
-    // inside viewport
+    // right: check if target width can be placed between host right and
+    // viewport end and also height of target is inside viewport
     if ((window.innerWidth || html.clientWidth) - hostElemClientRect.right > targetElemClientRect.width) {
       // check for right only
       if ((hostElemClientRect.top + hostElemClientRect.height / 2 - targetElement.offsetHeight / 2) > 0) {
@@ -180,7 +185,8 @@ export class Positioning {
       this.setSecondaryPlacementForLeftRight(hostElemClientRect, targetElemClientRect, 'right', availablePlacements);
     }
 
-    // bottom: check if there is enough space between host bottom and viewport end for target height
+    // bottom: check if there is enough space between host bottom and viewport
+    // end for target height
     if ((window.innerHeight || html.clientHeight) - hostElemClientRect.bottom > targetElemClientRect.height) {
       availablePlacements.splice(availablePlacements.length, 1, 'bottom');
       this.setSecondaryPlacementForTopBottom(hostElemClientRect, targetElemClientRect, 'bottom', availablePlacements);
@@ -190,8 +196,8 @@ export class Positioning {
   }
 
   /**
-   * check if secondary placement for left and right are available i.e. left-top, left-bottom, right-top, right-bottom
-   * primaryplacement: left|right
+   * check if secondary placement for left and right are available i.e.
+   * left-top, left-bottom, right-top, right-bottom primaryplacement: left|right
    * availablePlacementArr: array in which available placemets to be set
    */
   private setSecondaryPlacementForLeftRight(
@@ -208,8 +214,8 @@ export class Positioning {
   }
 
   /**
-   * check if secondary placement for top and bottom are available i.e. top-left, top-right, bottom-left, bottom-right
-   * primaryplacement: top|bottom
+   * check if secondary placement for top and bottom are available i.e.
+   * top-left, top-right, bottom-left, bottom-right primaryplacement: top|bottom
    * availablePlacementArr: array in which available placemets to be set
    */
   private setSecondaryPlacementForTopBottom(
@@ -229,12 +235,12 @@ export class Positioning {
 const positionService = new Positioning();
 
 /*
- * Accept the placement array and applies the appropriate placement dependent on the viewport.
- * Returns the applied placement.
- * In case of auto placement, placements are selected in order 'top', 'bottom', 'left', 'right'.
+ * Accept the placement array and applies the appropriate placement dependent on
+ * the viewport. Returns the applied placement. In case of auto placement,
+ * placements are selected in order 'top', 'bottom', 'left', 'right'.
  * */
 export function positionElements(
-    hostElement: HTMLElement, targetElement: HTMLElement, placement: string | Placement | PlacementArray,
+    hostElement: HTMLElement, targetElement: HTMLElement, placement: string|Placement|PlacementArray,
     appendToBody?: boolean): Placement {
   let placementVals: Array<Placement> = Array.isArray(placement) ? placement : [placement as Placement];
 
@@ -254,9 +260,9 @@ export function positionElements(
   // get available placements
   let availablePlacements = positionService.getAvailablePlacements(hostElement, targetElement);
   // iterate over all the passed placements
-  for (let { item, index } of toItemIndexes(placementVals)) {
-    // check if passed placement is present in the available placement or otherwise apply the last placement in the
-    // passed placement list
+  for (let {item, index} of toItemIndexes(placementVals)) {
+    // check if passed placement is present in the available placement or
+    // otherwise apply the last placement in the passed placement list
     if ((availablePlacements.find(val => val === item) != null) || (placementVals.length === index + 1)) {
       appliedPlacement = <Placement>item;
       const pos = positionService.positionElements(hostElement, targetElement, item, appendToBody);
@@ -275,7 +281,7 @@ function toItemIndexes<T>(a: T[]) {
   return a.map((item, index) => ({item, index}));
 }
 
-export type Placement = 'auto' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' |
-    'bottom-right' | 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom';
+export type Placement = 'auto'|'top'|'bottom'|'left'|'right'|'top-left'|'top-right'|'bottom-left'|'bottom-right'|
+    'left-top'|'left-bottom'|'right-top'|'right-bottom';
 
-export type PlacementArray = Placement | Array<Placement>;
+export type PlacementArray = Placement|Array<Placement>;

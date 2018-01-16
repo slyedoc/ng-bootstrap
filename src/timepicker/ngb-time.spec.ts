@@ -1,7 +1,6 @@
 import {NgbTime} from './ngb-time';
 
 describe('NgbTime', () => {
-
   it('should allow constructing new objects', () => {
     expect(new NgbTime(undefined, undefined).toString()).toBe('0:0:0');
     expect(new NgbTime(12, 31, 45).toString()).toBe('12:31:45');
@@ -217,6 +216,7 @@ describe('NgbTime', () => {
     expect(new NgbTime(null, null, null).isValid()).toBeFalsy();
   });
 
-  it('should have a validity flag with optional seconds checking',
-     () => { expect(new NgbTime(11, 0).isValid(false)).toBeTruthy(); });
+  it('should have a validity flag with optional seconds checking', () => {
+    expect(new NgbTime(11, 0).isValid(false)).toBeTruthy();
+  });
 });

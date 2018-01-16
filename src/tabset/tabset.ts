@@ -1,21 +1,23 @@
 import {
-  Component,
-  Input,
-  ContentChildren,
-  QueryList,
-  Directive,
-  TemplateRef,
-  ContentChild,
   AfterContentChecked,
+  Component,
+  ContentChild,
+  ContentChildren,
+  Directive,
+  EventEmitter,
+  Input,
   Output,
-  EventEmitter
+  QueryList,
+  TemplateRef
 } from '@angular/core';
+
 import {NgbTabsetConfig} from './tabset-config';
 
 let nextId = 0;
 
 /**
- * This directive should be used to wrap tab titles that need to contain HTML markup or other directives.
+ * This directive should be used to wrap tab titles that need to contain HTML
+ * markup or other directives.
  */
 @Directive({selector: 'ng-template[ngbTabTitle]'})
 export class NgbTabTitle {
@@ -36,15 +38,18 @@ export class NgbTabContent {
 @Directive({selector: 'ngb-tab'})
 export class NgbTab {
   /**
-   * Unique tab identifier. Must be unique for the entire document for proper accessibility support.
+   * Unique tab identifier. Must be unique for the entire document for proper
+   * accessibility support.
    */
   @Input() id: string = `ngb-tab-${nextId++}`;
   /**
-   * Simple (string only) title. Use the "NgbTabTitle" directive for more complex use-cases.
+   * Simple (string only) title. Use the "NgbTabTitle" directive for more
+   * complex use-cases.
    */
   @Input() title: string;
   /**
-   * Allows toggling disabled state of a given state. Disabled tabs can't be selected.
+   * Allows toggling disabled state of a given state. Disabled tabs can't be
+   * selected.
    */
   @Input() disabled = false;
 
@@ -109,7 +114,8 @@ export class NgbTabset implements AfterContentChecked {
   @ContentChildren(NgbTab) tabs: QueryList<NgbTab>;
 
   /**
-   * An identifier of an initially selected (active) tab. Use the "select" method to switch a tab programmatically.
+   * An identifier of an initially selected (active) tab. Use the "select"
+   * method to switch a tab programmatically.
    */
   @Input() activeId: string;
 
@@ -119,12 +125,12 @@ export class NgbTabset implements AfterContentChecked {
   @Input() destroyOnHide: boolean = true;
 
   /**
-   * The horizontal alignment of the nav with flexbox utilities. Can be one of 'start', 'center', 'end', 'fill' or
-   * 'justified'
-   * The default value is 'start'.
+   * The horizontal alignment of the nav with flexbox utilities. Can be one of
+   * 'start', 'center', 'end', 'fill' or 'justified' The default value is
+   * 'start'.
    */
   @Input()
-  set justify(className: 'start' | 'center' | 'end' | 'fill' | 'justified') {
+  set justify(className: 'start'|'center'|'end'|'fill'|'justified') {
     if (className === 'fill' || className === 'justified') {
       this.justifyClass = `nav-${className}`;
     } else {
@@ -136,15 +142,16 @@ export class NgbTabset implements AfterContentChecked {
    * The orientation of the nav (horizontal or vertical).
    * The default value is 'horizontal'.
    */
-  @Input() orientation: 'horizontal' | 'vertical';
+  @Input() orientation: 'horizontal'|'vertical';
 
   /**
    * Type of navigation to be used for tabs. Can be one of 'tabs' or 'pills'.
    */
-  @Input() type: 'tabs' | 'pills';
+  @Input() type: 'tabs'|'pills';
 
   /**
-   * A tab change event fired right before the tab selection happens. See NgbTabChangeEvent for payload details
+   * A tab change event fired right before the tab selection happens. See
+   * NgbTabChangeEvent for payload details
    */
   @Output() tabChange = new EventEmitter<NgbTabChangeEvent>();
 
@@ -156,15 +163,21 @@ export class NgbTabset implements AfterContentChecked {
 
   /**
    * Selects the tab with the given id and shows its associated pane.
-   * Any other tab that was previously selected becomes unselected and its associated pane is hidden.
+   * Any other tab that was previously selected becomes unselected and its
+   * associated pane is hidden.
    */
   select(tabId: string) {
     let selectedTab = this._getTabById(tabId);
     if (selectedTab && !selectedTab.disabled && this.activeId !== selectedTab.id) {
       let defaultPrevented = false;
 
-      this.tabChange.emit(
-          {activeId: this.activeId, nextId: selectedTab.id, preventDefault: () => { defaultPrevented = true; }});
+      this.tabChange.emit({
+        activeId: this.activeId,
+        nextId: selectedTab.id,
+        preventDefault: () => {
+          defaultPrevented = true;
+        }
+      });
 
       if (!defaultPrevented) {
         this.activeId = selectedTab.id;

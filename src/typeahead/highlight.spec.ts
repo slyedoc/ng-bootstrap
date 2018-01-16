@@ -1,7 +1,7 @@
-import {TestBed, ComponentFixture} from '@angular/core/testing';
-import {createGenericTestComponent} from '../test/common';
-
 import {Component} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+
+import {createGenericTestComponent} from '../test/common';
 
 import {NgbHighlight} from './highlight';
 import {NgbTypeaheadModule} from './typeahead.module';
@@ -33,7 +33,6 @@ function highlightHtml(fixture) {
 }
 
 describe('ngb-highlight', () => {
-
   beforeEach(() => {
     TestBed.overrideModule(NgbTypeaheadModule, {set: {exports: [NgbHighlight]}});
     TestBed.configureTestingModule({declarations: [TestComponent], imports: [NgbTypeaheadModule.forRoot()]});
@@ -127,5 +126,4 @@ describe('ngb-highlight', () => {
 
 
 @Component({selector: 'test-cmp', template: ''})
-class TestComponent {
-}
+class TestComponent {}

@@ -1,11 +1,11 @@
-import {TestBed, ComponentFixture, inject, fakeAsync, tick} from '@angular/core/testing';
+import {Component} from '@angular/core';
+import {ComponentFixture, fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
+
 import {createGenericTestComponent} from '../test/common';
 
-import {Component} from '@angular/core';
-
-import {NgbPaginationModule} from './pagination.module';
 import {NgbPagination} from './pagination';
 import {NgbPaginationConfig} from './pagination-config';
+import {NgbPaginationModule} from './pagination.module';
 
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -70,10 +70,11 @@ function expectSameValues(pagination: NgbPagination, config: NgbPaginationConfig
 
 describe('ngb-pagination', () => {
   describe('business logic', () => {
-
     let pagination: NgbPagination;
 
-    beforeEach(() => { pagination = new NgbPagination(new NgbPaginationConfig()); });
+    beforeEach(() => {
+      pagination = new NgbPagination(new NgbPaginationConfig());
+    });
 
     it('should initialize inputs with default values', () => {
       const defaultConfig = new NgbPaginationConfig();
@@ -135,11 +136,9 @@ describe('ngb-pagination', () => {
       pagination.ngOnChanges(null);
       expect(pagination.page).toEqual(2);
     });
-
   });
 
   describe('UI logic', () => {
-
     beforeEach(() => {
       TestBed.configureTestingModule({declarations: [TestComponent], imports: [NgbPaginationModule.forRoot()]});
     });
@@ -578,7 +577,9 @@ describe('ngb-pagination', () => {
   describe('Custom config', () => {
     let config: NgbPaginationConfig;
 
-    beforeEach(() => { TestBed.configureTestingModule({imports: [NgbPaginationModule.forRoot()]}); });
+    beforeEach(() => {
+      TestBed.configureTestingModule({imports: [NgbPaginationModule.forRoot()]});
+    });
 
     beforeEach(inject([NgbPaginationConfig], (c: NgbPaginationConfig) => {
       config = c;

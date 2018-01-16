@@ -1,15 +1,15 @@
-import {TestBed, ComponentFixture} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {createGenericTestComponent} from '../test/common';
-import {getMonthSelect, getYearSelect, getNavigationLinks} from '../test/datepicker/common';
-
 import {Component} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
 
-import {NgbDatepickerModule} from './datepicker.module';
-import {NavigationEvent} from './datepicker-view-model';
+import {createGenericTestComponent} from '../test/common';
+import {getMonthSelect, getNavigationLinks, getYearSelect} from '../test/datepicker/common';
+
 import {NgbDatepickerNavigation} from './datepicker-navigation';
-import {NgbDate} from './ngb-date';
 import {NgbDatepickerNavigationSelect} from './datepicker-navigation-select';
+import {NavigationEvent} from './datepicker-view-model';
+import {NgbDatepickerModule} from './datepicker.module';
+import {NgbDate} from './ngb-date';
 
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -22,7 +22,6 @@ function changeSelect(element: HTMLSelectElement, value: string) {
 }
 
 describe('ngb-datepicker-navigation', () => {
-
   beforeEach(() => {
     TestBed.overrideModule(
         NgbDatepickerModule, {set: {exports: [NgbDatepickerNavigation, NgbDatepickerNavigationSelect]}});
@@ -129,9 +128,10 @@ describe('ngb-datepicker-navigation', () => {
         [maxDate]="maxDate"></ngb-datepicker-navigation>`);
 
     const links = getNavigationLinks(fixture.nativeElement);
-    links.forEach((link) => { expect(link.getAttribute('type')).toBe('button'); });
+    links.forEach((link) => {
+      expect(link.getAttribute('type')).toBe('button');
+    });
   });
-
 });
 
 @Component({selector: 'test-cmp', template: ''})

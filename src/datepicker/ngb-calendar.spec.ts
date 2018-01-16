@@ -2,7 +2,6 @@ import {NgbCalendarGregorian} from './ngb-calendar';
 import {NgbDate} from './ngb-date';
 
 describe('ngb-calendar-gregorian', () => {
-
   const calendar = new NgbCalendarGregorian();
 
   it('should return todays date', () => {
@@ -12,9 +11,13 @@ describe('ngb-calendar-gregorian', () => {
     expect(calendar.getToday()).toEqual(today);
   });
 
-  it('should return number of days per week', () => { expect(calendar.getDaysPerWeek()).toBe(7); });
+  it('should return number of days per week', () => {
+    expect(calendar.getDaysPerWeek()).toBe(7);
+  });
 
-  it('should return number of weeks per month', () => { expect(calendar.getWeeksPerMonth()).toBe(6); });
+  it('should return number of weeks per month', () => {
+    expect(calendar.getWeeksPerMonth()).toBe(6);
+  });
 
   it('should return months of a year', () => {
     expect(calendar.getMonths()).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
@@ -91,5 +94,4 @@ describe('ngb-calendar-gregorian', () => {
     expect(calendar.isValid(new NgbDate(275760, 9, 12))).toBeTruthy();
     expect(calendar.isValid(new NgbDate(2016, 8, 8))).toBeTruthy();
   });
-
 });

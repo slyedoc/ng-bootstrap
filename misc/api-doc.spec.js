@@ -1,9 +1,9 @@
 var apiDoc = require('./api-doc');
 
 describe('APIDocVisitor', function() {
-
-  it('should return [] if there are no docs to extract',
-     function() { expect(apiDoc(['./misc/api-doc-test-cases/no-docs.ts'])).toEqual({}); });
+  it('should return [] if there are no docs to extract', function() {
+    expect(apiDoc(['./misc/api-doc-test-cases/no-docs.ts'])).toEqual({});
+  });
 
   it('should extract basic info from directives and components', function() {
     var docs = apiDoc(['misc/api-doc-test-cases/directives-no-in-out.ts']);
@@ -172,7 +172,7 @@ describe('APIDocVisitor', function() {
     expect(interfaceDocs.properties[0].description)
         .toContain('Weather a backdrop element should be created for a given modal (true by default)');
     expect(interfaceDocs.properties[0].description)
-        .toContain("Alternatively, specify 'static' for a backdrop which doesn't close the modal on click.");
+        .toContain('Alternatively, specify \'static\' for a backdrop which doesn\'t close the modal on click.');
     expect(interfaceDocs.properties[0].type).toBe('boolean | "static"');
     expect(interfaceDocs.properties[0].defaultValue).toBeUndefined();
 
@@ -222,5 +222,4 @@ describe('APIDocVisitor', function() {
     expect(classDocs.methods[0].description).toContain('some method');
     expect(classDocs.methods[0].returnType).toBe('void');
   });
-
 });

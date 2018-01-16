@@ -1,4 +1,5 @@
-import {Component, Input, OnChanges, ChangeDetectionStrategy, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+
 import {regExpEscape, toString} from '../util/util';
 
 @Component({
@@ -6,7 +7,8 @@ import {regExpEscape, toString} from '../util/util';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<ng-template ngFor [ngForOf]="parts" let-part let-isOdd="odd">` +
       `<span *ngIf="isOdd" class="{{highlightClass}}">{{part}}</span><ng-template [ngIf]="!isOdd">{{part}}</ng-template>` +
-      `</ng-template>`,  // template needs to be formatted in a certain way so we don't add empty text nodes
+      `</ng-template>`,  // template needs to be formatted in a certain way so
+                         // we don't add empty text nodes
   styles: [`
     .ngb-highlight {
       font-weight: bold;

@@ -1,9 +1,9 @@
 import {
+  ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   Output,
-  EventEmitter,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {NgbAlertConfig} from './alert-config';
@@ -25,17 +25,19 @@ import {NgbAlertConfig} from './alert-config';
 })
 export class NgbAlert {
   /**
-   * A flag indicating if a given alert can be dismissed (closed) by a user. If this flag is set, a close button (in a
-   * form of an ×) will be displayed.
+   * A flag indicating if a given alert can be dismissed (closed) by a user. If
+   * this flag is set, a close button (in a form of an ×) will be displayed.
    */
   @Input() dismissible: boolean;
   /**
-   * Alert type (CSS class). Bootstrap 4 recognizes the following types: "success", "info", "warning", "danger",
-   * "primary", "secondary", "light", "dark".
+   * Alert type (CSS class). Bootstrap 4 recognizes the following types:
+   * "success", "info", "warning", "danger", "primary", "secondary", "light",
+   * "dark".
    */
   @Input() type: string;
   /**
-   * An event emitted when the close button is clicked. This event has no payload. Only relevant for dismissible alerts.
+   * An event emitted when the close button is clicked. This event has no
+   * payload. Only relevant for dismissible alerts.
    */
   @Output() close = new EventEmitter();
 
@@ -44,5 +46,7 @@ export class NgbAlert {
     this.type = config.type;
   }
 
-  closeHandler() { this.close.emit(null); }
+  closeHandler() {
+    this.close.emit(null);
+  }
 }

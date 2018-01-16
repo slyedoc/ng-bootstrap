@@ -16,18 +16,20 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Subscription} from 'rxjs/Subscription';
-import {letProto} from 'rxjs/operator/let';
-import {_do} from 'rxjs/operator/do';
-import {switchMap} from 'rxjs/operator/switchMap';
+import {Observable} from 'rxjs/Observable';
 import {fromEvent} from 'rxjs/observable/fromEvent';
-import {positionElements, PlacementArray} from '../util/positioning';
-import {NgbTypeaheadWindow, ResultTemplateContext} from './typeahead-window';
+import {_do} from 'rxjs/operator/do';
+import {letProto} from 'rxjs/operator/let';
+import {switchMap} from 'rxjs/operator/switchMap';
+import {Subscription} from 'rxjs/Subscription';
+
 import {PopupService} from '../util/popup';
-import {toString, isDefined} from '../util/util';
+import {PlacementArray, positionElements} from '../util/positioning';
+import {isDefined, toString} from '../util/util';
+
 import {NgbTypeaheadConfig} from './typeahead-config';
+import {NgbTypeaheadWindow, ResultTemplateContext} from './typeahead-window';
 
 enum Key {
   Tab = 9,
@@ -61,7 +63,8 @@ export interface NgbTypeaheadSelectItemEvent {
 let nextWindowId = 0;
 
 /**
- * NgbTypeahead directive provides a simple way of creating powerful typeaheads from any text input
+ * NgbTypeahead directive provides a simple way of creating powerful typeaheads
+ * from any text input
  */
 @Directive({
   selector: 'input[ngbTypeahead]',
@@ -83,8 +86,7 @@ let nextWindowId = 0;
   },
   providers: [NGB_TYPEAHEAD_VALUE_ACCESSOR]
 })
-export class NgbTypeahead implements ControlValueAccessor,
-    OnInit, OnDestroy {
+export class NgbTypeahead implements ControlValueAccessor, OnInit, OnDestroy {
   private _popupService: PopupService<NgbTypeaheadWindow>;
   private _subscription: Subscription;
   private _inputValueBackup: string;
@@ -101,29 +103,33 @@ export class NgbTypeahead implements ControlValueAccessor,
   @Input() container: string;
 
   /**
-   * A flag indicating if model values should be restricted to the ones selected from the popup only.
+   * A flag indicating if model values should be restricted to the ones selected
+   * from the popup only.
    */
   @Input() editable: boolean;
 
   /**
-   * A flag indicating if the first match should automatically be focused as you type.
+   * A flag indicating if the first match should automatically be focused as you
+   * type.
    */
   @Input() focusFirst: boolean;
 
   /**
-   * A function to convert a given value into string to display in the input field
+   * A function to convert a given value into string to display in the input
+   * field
    */
   @Input() inputFormatter: (value: any) => string;
 
   /**
-   * A function to transform the provided observable text into the array of results.  Note that the "this" argument
-   * is undefined so you need to explicitly bind it to a desired "this" target.
+   * A function to transform the provided observable text into the array of
+   * results.  Note that the "this" argument is undefined so you need to
+   * explicitly bind it to a desired "this" target.
    */
   @Input() ngbTypeahead: (text: Observable<string>) => Observable<any[]>;
 
   /**
-   * A function to format a given result before display. This function should return a formatted string without any
-   * HTML markup
+   * A function to format a given result before display. This function should
+   * return a formatted string without any HTML markup
    */
   @Input() resultFormatter: (value: any) => string;
 
@@ -137,15 +143,17 @@ export class NgbTypeahead implements ControlValueAccessor,
    */
   @Input() showHint: boolean;
 
-  /** Placement of a typeahead accepts:
+  /**
+   * Placement of a typeahead accepts:
    *    "top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right",
    *    "left", "left-top", "left-bottom", "right", "right-top", "right-bottom"
    * and array of above values.
-  */
+   */
   @Input() placement: PlacementArray = 'bottom-left';
 
   /**
-   * An event emitted when a match is selected. Event payload is of type NgbTypeaheadSelectItemEvent.
+   * An event emitted when a match is selected. Event payload is of type
+   * NgbTypeaheadSelectItemEvent.
    */
   @Output() selectItem = new EventEmitter<NgbTypeaheadSelectItemEvent>();
 
@@ -204,11 +212,17 @@ export class NgbTypeahead implements ControlValueAccessor,
     this._zoneSubscription.unsubscribe();
   }
 
-  registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
+  registerOnChange(fn: (value: any) => any): void {
+    this._onChange = fn;
+  }
 
-  registerOnTouched(fn: () => any): void { this._onTouched = fn; }
+  registerOnTouched(fn: () => any): void {
+    this._onTouched = fn;
+  }
 
-  writeValue(value) { this._writeInputValue(this._formatItemForInput(value)); }
+  writeValue(value) {
+    this._writeInputValue(this._formatItemForInput(value));
+  }
 
   setDisabledState(isDisabled: boolean): void {
     this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
@@ -233,7 +247,9 @@ export class NgbTypeahead implements ControlValueAccessor,
   /**
    * Returns true if the typeahead popup window is displayed
    */
-  isPopupOpen() { return this._windowRef != null; }
+  isPopupOpen() {
+    return this._windowRef != null;
+  }
 
   handleBlur() {
     this._resubscribeTypeahead.next(null);
@@ -298,7 +314,12 @@ export class NgbTypeahead implements ControlValueAccessor,
 
   private _selectResult(result: any) {
     let defaultPrevented = false;
-    this.selectItem.emit({item: result, preventDefault: () => { defaultPrevented = true; }});
+    this.selectItem.emit({
+      item: result,
+      preventDefault: () => {
+        defaultPrevented = true;
+      }
+    });
     this._resubscribeTypeahead.next(null);
 
     if (!defaultPrevented) {

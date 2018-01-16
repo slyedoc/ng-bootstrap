@@ -1,13 +1,13 @@
 import {
+  AfterViewInit,
   Component,
-  Output,
+  ElementRef,
   EventEmitter,
   Input,
-  ElementRef,
-  Renderer2,
+  OnDestroy,
   OnInit,
-  AfterViewInit,
-  OnDestroy
+  Output,
+  Renderer2
 } from '@angular/core';
 
 import {ModalDismissReasons} from './modal-dismiss-reasons';
@@ -28,11 +28,10 @@ import {ModalDismissReasons} from './modal-dismiss-reasons';
     </div>
     `
 })
-export class NgbModalWindow implements OnInit,
-    AfterViewInit, OnDestroy {
+export class NgbModalWindow implements OnInit, AfterViewInit, OnDestroy {
   private _elWithFocus: Element;  // element that is focused prior to modal opening
 
-  @Input() backdrop: boolean | string = true;
+  @Input() backdrop: boolean|string = true;
   @Input() keyboard = true;
   @Input() size: string;
   @Input() windowClass: string;
@@ -53,7 +52,9 @@ export class NgbModalWindow implements OnInit,
     }
   }
 
-  dismiss(reason): void { this.dismissEvent.emit(reason); }
+  dismiss(reason): void {
+    this.dismissEvent.emit(reason);
+  }
 
   ngOnInit() {
     this._elWithFocus = document.activeElement;

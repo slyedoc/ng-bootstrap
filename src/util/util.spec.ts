@@ -1,9 +1,7 @@
-import {toInteger, toString, getValueInRange, isInteger, isString} from './util';
+import {getValueInRange, isInteger, isString, toInteger, toString} from './util';
 
 describe('util', () => {
-
   describe('toInteger', () => {
-
     it('should be noop for integers', () => {
       expect(toInteger(0)).toBe(0);
       expect(toInteger(10)).toBe(10);
@@ -20,12 +18,12 @@ describe('util', () => {
       expect(toInteger('10.1')).toBe(10);
       expect(toInteger('10.9')).toBe(10);
     });
-
   });
 
   describe('toString', () => {
-
-    it('should be noop for strings', () => { expect(toString('foo')).toBe('foo'); });
+    it('should be noop for strings', () => {
+      expect(toString('foo')).toBe('foo');
+    });
 
     it('should return empty string for undefined values', () => {
       expect(toString(null)).toBe('');
@@ -36,12 +34,12 @@ describe('util', () => {
       expect(toString(10)).toBe('10');
       expect(toString(false)).toBe('false');
     });
-
   });
 
   describe('getValueInRange', () => {
-
-    it('should be noop for numbers in range', () => { expect(getValueInRange(5, 10, 0)).toBe(5); });
+    it('should be noop for numbers in range', () => {
+      expect(getValueInRange(5, 10, 0)).toBe(5);
+    });
 
     it('should do corrections in range', () => {
       expect(getValueInRange(11, 10, 0)).toBe(10);
@@ -52,11 +50,9 @@ describe('util', () => {
       expect(getValueInRange(11, 10)).toBe(10);
       expect(getValueInRange(-1, 10)).toBe(0);
     });
-
   });
 
   describe('isInteger', () => {
-
     it('should recognize integers', () => {
       expect(isInteger(0)).toBeTruthy();
       expect(isInteger(10)).toBeTruthy();
@@ -71,11 +67,9 @@ describe('util', () => {
       expect(isInteger(14.1)).toBeFalsy();
       expect(isInteger(-14.1)).toBeFalsy();
     });
-
   });
 
   describe('isString', () => {
-
     it('should recognize strings', () => {
       expect(isString('string')).toBeTruthy();
       expect(isString('')).toBeTruthy();
@@ -87,7 +81,5 @@ describe('util', () => {
       expect(isString([])).toBeFalsy();
       expect(isString(undefined)).toBeFalsy();
     });
-
   });
-
 });

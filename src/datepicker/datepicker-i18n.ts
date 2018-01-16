@@ -8,8 +8,9 @@ const MONTHS_FULL = [
 ];
 
 /**
- * Type of the service supplying month and weekday names to to NgbDatepicker component.
- * See the i18n demo for how to extend this class and define a custom provider for i18n.
+ * Type of the service supplying month and weekday names to to NgbDatepicker
+ * component. See the i18n demo for how to extend this class and define a custom
+ * provider for i18n.
  */
 @Injectable()
 export abstract class NgbDatepickerI18n {
@@ -34,9 +35,15 @@ export abstract class NgbDatepickerI18n {
 
 @Injectable()
 export class NgbDatepickerI18nDefault extends NgbDatepickerI18n {
-  getWeekdayShortName(weekday: number): string { return WEEKDAYS_SHORT[weekday - 1]; }
+  getWeekdayShortName(weekday: number): string {
+    return WEEKDAYS_SHORT[weekday - 1];
+  }
 
-  getMonthShortName(month: number): string { return MONTHS_SHORT[month - 1]; }
+  getMonthShortName(month: number): string {
+    return MONTHS_SHORT[month - 1];
+  }
 
-  getMonthFullName(month: number): string { return MONTHS_FULL[month - 1]; }
+  getMonthFullName(month: number): string {
+    return MONTHS_FULL[month - 1];
+  }
 }

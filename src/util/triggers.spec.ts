@@ -1,9 +1,7 @@
 import {parseTriggers} from './triggers';
 
 describe('triggers', () => {
-
   describe('parseTriggers', () => {
-
     it('should parse single trigger', () => {
       const t = parseTriggers('foo');
 
@@ -83,6 +81,5 @@ describe('triggers', () => {
         parseTriggers('click manual');
       }).toThrow(`Triggers parse error: manual trigger can\'t be mixed with other triggers`);
     });
-
   });
 });

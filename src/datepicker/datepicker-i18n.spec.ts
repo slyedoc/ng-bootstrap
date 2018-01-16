@@ -1,7 +1,6 @@
 import {NgbDatepickerI18nDefault} from './datepicker-i18n';
 
 describe('ngb-datepicker-i18n-default', () => {
-
   const i18n = new NgbDatepickerI18nDefault();
 
   it('should return abbreviated month name', () => {
@@ -24,5 +23,4 @@ describe('ngb-datepicker-i18n-default', () => {
     expect(i18n.getWeekdayShortName(7)).toBe('Su');
     expect(i18n.getWeekdayShortName(8)).toBe(undefined);
   });
-
 });

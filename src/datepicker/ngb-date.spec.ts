@@ -1,11 +1,12 @@
 import {NgbDate} from './ngb-date';
 
 describe('ngb-date', () => {
-
   describe('equals', () => {
     const date = new NgbDate(2016, 8, 18);
 
-    it('should return true for the same dates', () => { expect(date.equals(new NgbDate(2016, 8, 18))).toBeTruthy(); });
+    it('should return true for the same dates', () => {
+      expect(date.equals(new NgbDate(2016, 8, 18))).toBeTruthy();
+    });
 
     it('should return false different dates', () => {
       expect(date.equals(new NgbDate(0, 8, 18))).toBeFalsy();

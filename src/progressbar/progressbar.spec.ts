@@ -1,11 +1,11 @@
-import {TestBed, ComponentFixture, inject} from '@angular/core/testing';
+import {Component} from '@angular/core';
+import {ComponentFixture, inject, TestBed} from '@angular/core/testing';
+
 import {createGenericTestComponent} from '../test/common';
 
-import {Component} from '@angular/core';
-
-import {NgbProgressbarModule} from './progressbar.module';
 import {NgbProgressbar} from './progressbar';
 import {NgbProgressbarConfig} from './progressbar-config';
+import {NgbProgressbarModule} from './progressbar.module';
 
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -30,7 +30,9 @@ describe('ngb-progressbar', () => {
   describe('business logic', () => {
     let progressCmp: NgbProgressbar;
 
-    beforeEach(() => { progressCmp = new NgbProgressbar(new NgbProgressbarConfig()); });
+    beforeEach(() => {
+      progressCmp = new NgbProgressbar(new NgbProgressbarConfig());
+    });
 
     it('should initialize inputs with default values', () => {
       const defaultConfig = new NgbProgressbarConfig();
@@ -88,7 +90,6 @@ describe('ngb-progressbar', () => {
   });
 
   describe('UI logic', () => {
-
     beforeEach(() => {
       TestBed.configureTestingModule({declarations: [TestComponent], imports: [NgbProgressbarModule.forRoot()]});
     });
@@ -99,9 +100,9 @@ describe('ngb-progressbar', () => {
 
       expect(getBarWidth(fixture.nativeElement)).toBe('10%');
 
-      // this might fail in IE11 if attribute binding order is not respected for the <progress> element:
-      // <progress [value]="" [max]=""> will fail with value = 1
-      // <progress [max]="" [value]=""> will work with value = 10
+      // this might fail in IE11 if attribute binding order is not respected for
+      // the <progress> element: <progress [value]="" [max]=""> will fail with
+      // value = 1 <progress [max]="" [value]=""> will work with value = 10
       expect(getBarValue(fixture.nativeElement)).toBe(10);
 
       fixture.componentInstance.value = 30;
@@ -219,7 +220,9 @@ describe('ngb-progressbar', () => {
   describe('Custom config', () => {
     let config: NgbProgressbarConfig;
 
-    beforeEach(() => { TestBed.configureTestingModule({imports: [NgbProgressbarModule.forRoot()]}); });
+    beforeEach(() => {
+      TestBed.configureTestingModule({imports: [NgbProgressbarModule.forRoot()]});
+    });
 
     beforeEach(inject([NgbProgressbarConfig], (c: NgbProgressbarConfig) => {
       config = c;

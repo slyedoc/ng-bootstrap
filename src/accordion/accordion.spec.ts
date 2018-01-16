@@ -1,11 +1,11 @@
-import {TestBed, ComponentFixture, inject} from '@angular/core/testing';
+import {Component} from '@angular/core';
+import {ComponentFixture, inject, TestBed} from '@angular/core/testing';
+
 import {createGenericTestComponent} from '../test/common';
 
-import {Component} from '@angular/core';
-
-import {NgbAccordionModule} from './accordion.module';
-import {NgbAccordionConfig} from './accordion-config';
 import {NgbAccordion} from './accordion';
+import {NgbAccordionConfig} from './accordion-config';
+import {NgbAccordionModule} from './accordion.module';
 
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -192,7 +192,9 @@ describe('ngb-accordion', () => {
     const titles = getPanelsTitle(compiled);
     expect(titles.length).not.toBe(0);
 
-    titles.forEach((title: HTMLElement, idx: number) => { expect(title.textContent.trim()).toBe(`Panel ${idx + 1}`); });
+    titles.forEach((title: HTMLElement, idx: number) => {
+      expect(title.textContent.trim()).toBe(`Panel ${idx + 1}`);
+    });
   });
 
   it('can use a title without template', () => {
@@ -229,7 +231,9 @@ describe('ngb-accordion', () => {
 
     const titles = getPanelsTitle(fixture.nativeElement);
 
-    titles.forEach((title: HTMLElement, idx: number) => { expect(title.textContent.trim()).toBe(`Panel ${idx + 1}`); });
+    titles.forEach((title: HTMLElement, idx: number) => {
+      expect(title.textContent.trim()).toBe(`Panel ${idx + 1}`);
+    });
   });
 
   it('should have the appropriate content', () => {
@@ -525,7 +529,9 @@ describe('ngb-accordion', () => {
   describe('Custom config', () => {
     let config: NgbAccordionConfig;
 
-    beforeEach(() => { TestBed.configureTestingModule({imports: [NgbAccordionModule.forRoot()]}); });
+    beforeEach(() => {
+      TestBed.configureTestingModule({imports: [NgbAccordionModule.forRoot()]});
+    });
 
     beforeEach(inject([NgbAccordionConfig], (c: NgbAccordionConfig) => {
       config = c;
@@ -566,7 +572,7 @@ describe('ngb-accordion', () => {
 
 @Component({selector: 'test-cmp', template: ''})
 class TestComponent {
-  activeIds: string | string[] = [];
+  activeIds: string|string[] = [];
   classType;
   closeOthers = false;
   panels = [

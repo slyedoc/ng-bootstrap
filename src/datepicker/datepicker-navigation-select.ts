@@ -1,8 +1,10 @@
-import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectionStrategy} from '@angular/core';
-import {NgbDate} from './ngb-date';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+
 import {toInteger} from '../util/util';
+
 import {NgbDatepickerI18n} from './datepicker-i18n';
 import {NgbCalendar} from './ngb-calendar';
+import {NgbDate} from './ngb-date';
 
 @Component({
   selector: 'ngb-datepicker-navigation-select',
@@ -48,7 +50,9 @@ export class NgbDatepickerNavigationSelect implements OnChanges {
 
   @Output() select = new EventEmitter<NgbDate>();
 
-  constructor(public i18n: NgbDatepickerI18n, private calendar: NgbCalendar) { this.months = calendar.getMonths(); }
+  constructor(public i18n: NgbDatepickerI18n, private calendar: NgbCalendar) {
+    this.months = calendar.getMonths();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['maxDate'] || changes['minDate'] || changes['date']) {
@@ -57,9 +61,13 @@ export class NgbDatepickerNavigationSelect implements OnChanges {
     }
   }
 
-  changeMonth(month: string) { this.select.emit(new NgbDate(this.date.year, toInteger(month), 1)); }
+  changeMonth(month: string) {
+    this.select.emit(new NgbDate(this.date.year, toInteger(month), 1));
+  }
 
-  changeYear(year: string) { this.select.emit(new NgbDate(toInteger(year), this.date.month, 1)); }
+  changeYear(year: string) {
+    this.select.emit(new NgbDate(toInteger(year), this.date.month, 1));
+  }
 
   private _generateMonths() {
     this.months = this.calendar.getMonths();

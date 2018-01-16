@@ -1,20 +1,22 @@
 import {
-  Component,
   ChangeDetectionStrategy,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  OnChanges,
-  SimpleChanges,
+  ChangeDetectorRef,
+  Component,
   ContentChild,
+  EventEmitter,
   forwardRef,
-  ChangeDetectorRef
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  TemplateRef
 } from '@angular/core';
-import {NgbRatingConfig} from './rating-config';
-import {toString, getValueInRange} from '../util/util';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+
+import {getValueInRange, toString} from '../util/util';
+
+import {NgbRatingConfig} from './rating-config';
 
 enum Key {
   End = 35,
@@ -76,8 +78,7 @@ const NGB_RATING_VALUE_ACCESSOR = {
   `,
   providers: [NGB_RATING_VALUE_ACCESSOR]
 })
-export class NgbRating implements ControlValueAccessor,
-    OnInit, OnChanges {
+export class NgbRating implements ControlValueAccessor, OnInit, OnChanges {
   contexts: StarTemplateContext[] = [];
   disabled = false;
   nextRate: number;
@@ -107,7 +108,8 @@ export class NgbRating implements ControlValueAccessor,
    * A template to override star display.
    * Alternatively put a <ng-template> as the only child of <ngb-rating> element
    */
-  @Input() @ContentChild(TemplateRef) starTemplate: TemplateRef<StarTemplateContext>;
+  @Input() @ContentChild(TemplateRef)
+  starTemplate: TemplateRef<StarTemplateContext>;
 
   /**
    * An event fired when a user is hovering over a given rating.
@@ -135,7 +137,9 @@ export class NgbRating implements ControlValueAccessor,
     this.readonly = config.readonly;
   }
 
-  ariaValueText() { return `${this.nextRate} out of ${this.max}`; }
+  ariaValueText() {
+    return `${this.nextRate} out of ${this.max}`;
+  }
 
   enter(value: number): void {
     if (!this.readonly && !this.disabled) {
@@ -144,9 +148,13 @@ export class NgbRating implements ControlValueAccessor,
     this.hover.emit(value);
   }
 
-  handleBlur() { this.onTouched(); }
+  handleBlur() {
+    this.onTouched();
+  }
 
-  handleClick(value: number) { this.update(this.resettable && this.rate === value ? 0 : value); }
+  handleClick(value: number) {
+    this.update(this.resettable && this.rate === value ? 0 : value);
+  }
 
   handleKeyDown(event: KeyboardEvent) {
     if (Key[toString(event.which)]) {
@@ -182,16 +190,22 @@ export class NgbRating implements ControlValueAccessor,
     this._updateState(this.rate);
   }
 
-  registerOnChange(fn: (value: any) => any): void { this.onChange = fn; }
+  registerOnChange(fn: (value: any) => any): void {
+    this.onChange = fn;
+  }
 
-  registerOnTouched(fn: () => any): void { this.onTouched = fn; }
+  registerOnTouched(fn: () => any): void {
+    this.onTouched = fn;
+  }
 
   reset(): void {
     this.leave.emit(this.nextRate);
     this._updateState(this.rate);
   }
 
-  setDisabledState(isDisabled: boolean) { this.disabled = isDisabled; }
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+  }
 
   update(value: number, internalChange = true): void {
     const newRate = getValueInRange(value, this.max, 0);

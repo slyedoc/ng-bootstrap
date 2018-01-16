@@ -1,12 +1,12 @@
-import {TestBed, ComponentFixture, inject} from '@angular/core/testing';
+import {ChangeDetectionStrategy, Component, Injectable, OnDestroy, ViewChild} from '@angular/core';
+import {ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+
 import {createGenericTestComponent} from '../test/common';
 
-import {By} from '@angular/platform-browser';
-import {Component, ViewChild, ChangeDetectionStrategy, Injectable, OnDestroy} from '@angular/core';
-
-import {NgbPopoverModule} from './popover.module';
-import {NgbPopoverWindow, NgbPopover} from './popover';
+import {NgbPopover, NgbPopoverWindow} from './popover';
 import {NgbPopoverConfig} from './popover-config';
+import {NgbPopoverModule} from './popover.module';
 
 @Injectable()
 class SpyService {
@@ -16,8 +16,8 @@ class SpyService {
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
 
-const createOnPushTestComponent =
-    (html: string) => <ComponentFixture<TestOnPushComponent>>createGenericTestComponent(html, TestOnPushComponent);
+const createOnPushTestComponent = (html: string) =>
+    <ComponentFixture<TestOnPushComponent>>createGenericTestComponent(html, TestOnPushComponent);
 
 describe('ngb-popover-window', () => {
   beforeEach(() => {
@@ -44,7 +44,6 @@ describe('ngb-popover-window', () => {
 });
 
 describe('ngb-popover', () => {
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [TestComponent, TestOnPushComponent, DestroyableCmpt],
@@ -53,10 +52,11 @@ describe('ngb-popover', () => {
     });
   });
 
-  function getWindow(element) { return element.querySelector('ngb-popover-window'); }
+  function getWindow(element) {
+    return element.querySelector('ngb-popover-window');
+  }
 
   describe('basic functionality', () => {
-
     it('should open and close a popover - default settings and content as string', () => {
       const fixture = createTestComponent(`<div ngbPopover="Great tip!" popoverTitle="Title"></div>`);
       const directive = fixture.debugElement.query(By.directive(NgbPopover));
@@ -196,7 +196,6 @@ describe('ngb-popover', () => {
 
 
   describe('positioning', () => {
-
     it('should use requested position', () => {
       const fixture = createTestComponent(`<div ngbPopover="Great tip!" placement="left"></div>`);
       const directive = fixture.debugElement.query(By.directive(NgbPopover));
@@ -260,15 +259,14 @@ describe('ngb-popover', () => {
       const windowEl = getWindow(fixture.nativeElement);
 
       expect(windowEl).toHaveCssClass('popover');
-      // actual placement with auto is not known in advance, so use regex to check it
+      // actual placement with auto is not known in advance, so use regex to
+      // check it
       expect(windowEl.getAttribute('class')).toMatch('bs-popover-\.');
       expect(windowEl.textContent.trim()).toBe('Great tip!');
     });
-
   });
 
   describe('container', () => {
-
     it('should be appended to the element matching the selector passed to "container"', () => {
       const selector = 'body';
       const fixture = createTestComponent(`<div ngbPopover="Great tip!" container="` + selector + `"></div>`);
@@ -294,7 +292,6 @@ describe('ngb-popover', () => {
       fixture.detectChanges();
       expect(getWindow(document.querySelector(selector))).toBeNull();
     });
-
   });
 
   describe('visibility', () => {
@@ -537,12 +534,13 @@ export class TestComponent {
 }
 
 @Component({selector: 'test-onpush-cmpt', changeDetection: ChangeDetectionStrategy.OnPush, template: ``})
-export class TestOnPushComponent {
-}
+export class TestOnPushComponent {}
 
 @Component({selector: 'destroyable-cmpt', template: 'Some content'})
 export class DestroyableCmpt implements OnDestroy {
   constructor(private _spyService: SpyService) {}
 
-  ngOnDestroy(): void { this._spyService.called = true; }
+  ngOnDestroy(): void {
+    this._spyService.called = true;
+  }
 }

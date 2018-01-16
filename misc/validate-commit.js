@@ -89,6 +89,7 @@ exports.validateMessage = validateMessage;
 
 // hacky start if not run by jasmine :-D
 if (process.argv.join('').indexOf('jasmine-node') === -1) {
+  console.log( process.argv);
   var commitMsgFile = process.argv[2];
   var incorrectLogFile = commitMsgFile.replace('COMMIT_EDITMSG', 'logs/incorrect-commit-msgs');
 

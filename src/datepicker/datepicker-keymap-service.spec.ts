@@ -1,8 +1,9 @@
-import {NgbDatepickerKeyMapService} from './datepicker-keymap-service';
-import {NgbCalendar, NgbCalendarGregorian} from './ngb-calendar';
-import {NgbDatepickerService} from './datepicker-service';
 import {TestBed} from '@angular/core/testing';
 import {Subject} from 'rxjs/Subject';
+
+import {NgbDatepickerKeyMapService} from './datepicker-keymap-service';
+import {NgbDatepickerService} from './datepicker-service';
+import {NgbCalendar, NgbCalendarGregorian} from './ngb-calendar';
 import {NgbDate} from './ngb-date';
 
 enum Key {
@@ -22,7 +23,6 @@ const event = (keyCode: number, shift = false) =>
     <any>({which: keyCode, shiftKey: shift, preventDefault: () => {}, stopPropagation: () => {}});
 
 describe('ngb-datepicker-keymap-service', () => {
-
   let service: NgbDatepickerKeyMapService;
   let calendar: NgbCalendar;
   let mock: {focus, focusMove, focusSelect, model$};
@@ -46,7 +46,9 @@ describe('ngb-datepicker-keymap-service', () => {
     spyOn(mock, 'focusSelect');
   });
 
-  it('should be instantiated', () => { expect(service).toBeTruthy(); });
+  it('should be instantiated', () => {
+    expect(service).toBeTruthy();
+  });
 
   it('should move focus by 1 day or 1 week with "Arrow" keys', () => {
     service.processKey(event(Key.ArrowUp));
@@ -140,5 +142,4 @@ describe('ngb-datepicker-keymap-service', () => {
     expect(e.preventDefault).not.toHaveBeenCalled();
     expect(e.stopPropagation).not.toHaveBeenCalled();
   });
-
 });

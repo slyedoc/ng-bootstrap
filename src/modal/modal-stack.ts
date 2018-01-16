@@ -1,11 +1,11 @@
 import {
   ApplicationRef,
-  Injectable,
-  Injector,
-  ReflectiveInjector,
   ComponentFactory,
   ComponentFactoryResolver,
   ComponentRef,
+  Injectable,
+  Injector,
+  ReflectiveInjector,
   TemplateRef
 } from '@angular/core';
 
@@ -13,8 +13,8 @@ import {ContentRef} from '../util/popup';
 import {isDefined, isString} from '../util/util';
 
 import {NgbModalBackdrop} from './modal-backdrop';
-import {NgbModalWindow} from './modal-window';
 import {NgbActiveModal, NgbModalRef} from './modal-ref';
+import {NgbModalWindow} from './modal-window';
 
 @Injectable()
 export class NgbModalStack {
@@ -55,8 +55,12 @@ export class NgbModalStack {
 
     ngbModalRef = new NgbModalRef(windowCmptRef, contentRef, backdropCmptRef, options.beforeDismiss);
 
-    activeModal.close = (result: any) => { ngbModalRef.close(result); };
-    activeModal.dismiss = (reason: any) => { ngbModalRef.dismiss(reason); };
+    activeModal.close = (result: any) => {
+      ngbModalRef.close(result);
+    };
+    activeModal.dismiss = (reason: any) => {
+      ngbModalRef.dismiss(reason);
+    };
 
     this._applyWindowOptions(windowCmptRef.instance, options);
 

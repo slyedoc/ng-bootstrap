@@ -1,13 +1,13 @@
 import {TestBed} from '@angular/core/testing';
+import {Subscription} from 'rxjs/Subscription';
+
 import {NgbDatepickerService} from './datepicker-service';
+import {DatepickerViewModel} from './datepicker-view-model';
 import {NgbCalendar, NgbCalendarGregorian} from './ngb-calendar';
 import {NgbDate} from './ngb-date';
-import {Subscription} from 'rxjs/Subscription';
-import {DatepickerViewModel} from './datepicker-view-model';
 import {NgbDateStruct} from './ngb-date-struct';
 
 describe('ngb-datepicker-service', () => {
-
   let service: NgbDatepickerService;
   let calendar: NgbCalendar;
   let model: DatepickerViewModel;
@@ -42,9 +42,13 @@ describe('ngb-datepicker-service', () => {
         service.select$.subscribe(mockSelect.onNext), service.select$.subscribe(d => selectDate = d));
   });
 
-  afterEach(() => { subscriptions.forEach(s => s.unsubscribe()); });
+  afterEach(() => {
+    subscriptions.forEach(s => s.unsubscribe());
+  });
 
-  it(`should be possible to instantiate`, () => { expect(service).toBeTruthy(); });
+  it(`should be possible to instantiate`, () => {
+    expect(service).toBeTruthy();
+  });
 
   it(`should not return anything upon subscription`, () => {
     expect(model).toBeUndefined();
@@ -52,7 +56,6 @@ describe('ngb-datepicker-service', () => {
   });
 
   describe(`min/max dates`, () => {
-
     it(`should emit only undefined and valid 'minDate' values`, () => {
       // valid
       const minDate = new NgbDate(2017, 5, 1);
@@ -178,7 +181,6 @@ describe('ngb-datepicker-service', () => {
   });
 
   describe(`firstDayOfWeek`, () => {
-
     it(`should emit only positive numeric 'firstDayOfWeek' values`, () => {
       // valid
       service.firstDayOfWeek = 2;
@@ -242,7 +244,6 @@ describe('ngb-datepicker-service', () => {
   });
 
   describe(`displayMonths`, () => {
-
     it(`should emit only positive numeric 'displayMonths' values`, () => {
       // valid
       service.displayMonths = 2;
@@ -306,7 +307,6 @@ describe('ngb-datepicker-service', () => {
   });
 
   describe(`disabled`, () => {
-
     it(`should emit 'disabled' values`, () => {
       service.focus(new NgbDate(2017, 5, 1));
       expect(model.disabled).toEqual(false);
@@ -384,11 +384,9 @@ describe('ngb-datepicker-service', () => {
       service.focusVisible = true;
       expect(model.focusVisible).toBeFalsy();
     });
-
   });
 
   describe(`focusVisible`, () => {
-
     it(`should set focus visible or not`, () => {
       service.focus(new NgbDate(2017, 5, 1));
       expect(model.focusVisible).toEqual(false);
@@ -405,11 +403,9 @@ describe('ngb-datepicker-service', () => {
 
       expect(mock.onNext).toHaveBeenCalledTimes(1);
     });
-
   });
 
   describe(`navigation`, () => {
-
     it(`should emit navigation values`, () => {
       // default = 'selected'
       service.focus(new NgbDate(2015, 5, 1));
@@ -431,7 +427,6 @@ describe('ngb-datepicker-service', () => {
   });
 
   describe(`markDisabled`, () => {
-
     it(`should mark dates as disabled by passing 'markDisabled'`, () => {
       // marking 5th day of each month as disabled
       service.markDisabled = (date) => date && date.day === 5;
@@ -459,7 +454,6 @@ describe('ngb-datepicker-service', () => {
   });
 
   describe(`focus handling`, () => {
-
     it(`should generate 1 month on 'focus()' by default`, () => {
       expect(model).toBeUndefined();
 
@@ -585,7 +579,6 @@ describe('ngb-datepicker-service', () => {
   });
 
   describe(`view change handling`, () => {
-
     it(`should open month and set up focus correctly`, () => {
       service.open(new NgbDate(2017, 5, 5));
       expect(model.months.length).toBe(1);
@@ -664,7 +657,6 @@ describe('ngb-datepicker-service', () => {
   });
 
   describe(`selection handling`, () => {
-
     it(`should generate months for initial selection`, () => {
       const date = new NgbDate(2017, 5, 5);
       service.select(date);
@@ -782,7 +774,6 @@ describe('ngb-datepicker-service', () => {
   });
 
   describe(`template context`, () => {
-
     it(`should generate 'date' for day template`, () => {
       service.focus(new NgbDate(2017, 5, 1));
       expect(getDayCtx(0).date).toEqual({year: 2017, month: 5, day: 1});
@@ -869,7 +860,6 @@ describe('ngb-datepicker-service', () => {
   });
 
   describe('toValidDate()', () => {
-
     it('should convert a valid NgbDate', () => {
       expect(service.toValidDate(new NgbDate(2016, 10, 5))).toEqual(new NgbDate(2016, 10, 5));
       expect(service.toValidDate({year: 2016, month: 10, day: 5})).toEqual(new NgbDate(2016, 10, 5));
@@ -884,8 +874,9 @@ describe('ngb-datepicker-service', () => {
       expect(service.toValidDate(new NgbDate(275760, 9, 14))).toEqual(today);
     });
 
-    it('should return today if default value is undefined',
-       () => { expect(service.toValidDate(null, undefined)).toEqual(calendar.getToday()); });
+    it('should return today if default value is undefined', () => {
+      expect(service.toValidDate(null, undefined)).toEqual(calendar.getToday());
+    });
 
     it('should return default value for an invalid NgbDate if provided', () => {
       expect(service.toValidDate(null, new NgbDate(1066, 6, 6))).toEqual(new NgbDate(1066, 6, 6));

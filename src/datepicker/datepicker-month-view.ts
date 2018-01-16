@@ -1,8 +1,9 @@
-import {Component, Input, TemplateRef, Output, EventEmitter} from '@angular/core';
-import {MonthViewModel, DayViewModel, WeekViewModel} from './datepicker-view-model';
-import {NgbDate} from './ngb-date';
-import {NgbDatepickerI18n} from './datepicker-i18n';
+import {Component, EventEmitter, Input, Output, TemplateRef} from '@angular/core';
+
 import {DayTemplateContext} from './datepicker-day-template-context';
+import {NgbDatepickerI18n} from './datepicker-i18n';
+import {DayViewModel, MonthViewModel, WeekViewModel} from './datepicker-view-model';
+import {NgbDate} from './ngb-date';
 
 @Component({
   selector: 'ngb-datepicker-month-view',
@@ -56,7 +57,7 @@ import {DayTemplateContext} from './datepicker-day-template-context';
 export class NgbDatepickerMonthView {
   @Input() dayTemplate: TemplateRef<DayTemplateContext>;
   @Input() month: MonthViewModel;
-  @Input() outsideDays: 'visible' | 'hidden' | 'collapsed';
+  @Input() outsideDays: 'visible'|'hidden'|'collapsed';
   @Input() showWeekdays;
   @Input() showWeekNumbers;
 

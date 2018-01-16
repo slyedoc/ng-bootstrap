@@ -1,3 +1,5 @@
+import {TestBed} from '@angular/core/testing';
+
 import {
   buildMonth,
   buildMonths,
@@ -6,15 +8,12 @@ import {
   getFirstViewDate,
   isDateSelectable
 } from './datepicker-tools';
-import {NgbDate} from './ngb-date';
-import {NgbCalendar, NgbCalendarGregorian} from './ngb-calendar';
-import {TestBed} from '@angular/core/testing';
 import {NgbMarkDisabled} from './datepicker-view-model';
+import {NgbCalendar, NgbCalendarGregorian} from './ngb-calendar';
+import {NgbDate} from './ngb-date';
 
 describe(`datepicker-tools`, () => {
-
   describe(`dateComparator()`, () => {
-
     it(`should compare valid dates`, () => {
       expect(dateComparator(new NgbDate(2017, 5, 2), new NgbDate(2017, 5, 2))).toBe(true);
 
@@ -35,7 +34,6 @@ describe(`datepicker-tools`, () => {
   });
 
   describe(`checkDateInRange()`, () => {
-
     it(`should throw adjust date to be in between of min and max dates`, () => {
       const minDate = new NgbDate(2015, 5, 1);
       const maxDate = new NgbDate(2015, 5, 10);
@@ -70,7 +68,6 @@ describe(`datepicker-tools`, () => {
   });
 
   describe(`buildMonth()`, () => {
-
     let calendar: NgbCalendar;
 
     beforeAll(() => {
@@ -78,7 +75,8 @@ describe(`datepicker-tools`, () => {
       calendar = TestBed.get(NgbCalendar);
     });
 
-    // TODO: this should be automated somehow, ex. generate next 10 years or something
+    // TODO: this should be automated somehow, ex. generate next 10 years or
+    // something
     const months = [
       {
         // MAY 2017
@@ -112,7 +110,6 @@ describe(`datepicker-tools`, () => {
 
     months.forEach(refMonth => {
       it(`should build month (${refMonth.date.year} - ${refMonth.date.month}) correctly`, () => {
-
         let month = buildMonth(calendar, refMonth.date, undefined, undefined, 1, undefined);
 
         expect(month).toBeTruthy();
@@ -207,7 +204,6 @@ describe(`datepicker-tools`, () => {
   });
 
   describe(`buildMonths()`, () => {
-
     let calendar: NgbCalendar;
 
     beforeAll(() => {
@@ -309,7 +305,6 @@ describe(`datepicker-tools`, () => {
   });
 
   describe(`getFirstViewDate()`, () => {
-
     let calendar: NgbCalendar;
 
     beforeAll(() => {
@@ -333,13 +328,13 @@ describe(`datepicker-tools`, () => {
     ];
 
     months.forEach(month => {
-      it(`should return the correct first view date`,
-         () => { expect(getFirstViewDate(calendar, month.date, 1)).toEqual(month.first); });
+      it(`should return the correct first view date`, () => {
+        expect(getFirstViewDate(calendar, month.date, 1)).toEqual(month.first);
+      });
     });
   });
 
   describe(`isDateSelectable()`, () => {
-
     // disabling 15th of any month
     const markDisabled: NgbMarkDisabled = (date, month) => date.day === 15;
 
@@ -374,5 +369,4 @@ describe(`datepicker-tools`, () => {
       expect(isDateSelectable(new NgbDate(2018, 11, 10), null, null, false)).toBeTruthy();
     });
   });
-
 });

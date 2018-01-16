@@ -1,9 +1,12 @@
-import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+
 import {getValueInRange} from '../util/util';
+
 import {NgbProgressbarConfig} from './progressbar-config';
 
 /**
- * Directive that can be used to provide feedback on the progress of a workflow or an action.
+ * Directive that can be used to provide feedback on the progress of a workflow
+ * or an action.
  */
 @Component({
   selector: 'ngb-progressbar',
@@ -25,8 +28,9 @@ export class NgbProgressbar {
   @Input() max: number;
 
   /**
-   * A flag indicating if the stripes of the progress bar should be animated. Takes effect only for browsers
-   * supporting CSS3 animations, and if striped is true.
+   * A flag indicating if the stripes of the progress bar should be animated.
+   * Takes effect only for browsers supporting CSS3 animations, and if striped
+   * is true.
    */
   @Input() animated: boolean;
 
@@ -41,12 +45,14 @@ export class NgbProgressbar {
   @Input() showValue: boolean;
 
   /**
-   * Type of progress bar, can be one of "success", "info", "warning" or "danger".
+   * Type of progress bar, can be one of "success", "info", "warning" or
+   * "danger".
    */
   @Input() type: string;
 
   /**
-   * Current value to be displayed in the progressbar. Should be smaller or equal to "max" value.
+   * Current value to be displayed in the progressbar. Should be smaller or
+   * equal to "max" value.
    */
   @Input() value = 0;
 
@@ -64,7 +70,11 @@ export class NgbProgressbar {
     this.height = config.height;
   }
 
-  getValue() { return getValueInRange(this.value, this.max); }
+  getValue() {
+    return getValueInRange(this.value, this.max);
+  }
 
-  getPercentValue() { return 100 * this.getValue() / this.max; }
+  getPercentValue() {
+    return 100 * this.getValue() / this.max;
+  }
 }

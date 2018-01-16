@@ -1,11 +1,11 @@
-import {TestBed, ComponentFixture, inject} from '@angular/core/testing';
+import {Component} from '@angular/core';
+import {ComponentFixture, inject, TestBed} from '@angular/core/testing';
+
 import {createGenericTestComponent} from '../test/common';
 
-import {Component} from '@angular/core';
-
-import {NgbTabsetModule} from './tabset.module';
-import {NgbTabsetConfig} from './tabset-config';
 import {NgbTabset} from './tabset';
+import {NgbTabsetConfig} from './tabset-config';
+import {NgbTabsetModule} from './tabset.module';
 
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -56,8 +56,9 @@ function getButton(nativeEl: HTMLElement) {
 }
 
 describe('ngb-tabset', () => {
-  beforeEach(
-      () => { TestBed.configureTestingModule({declarations: [TestComponent], imports: [NgbTabsetModule.forRoot()]}); });
+  beforeEach(() => {
+    TestBed.configureTestingModule({declarations: [TestComponent], imports: [NgbTabsetModule.forRoot()]});
+  });
 
   it('should initialize inputs with default values', () => {
     const defaultConfig = new NgbTabsetConfig();
@@ -403,7 +404,8 @@ describe('ngb-tabset', () => {
 
     const button = getButton(fixture.nativeElement);
 
-    // Click on a button to select the second disabled tab (should not change active tab).
+    // Click on a button to select the second disabled tab (should not change
+    // active tab).
     (<HTMLElement>button[0]).click();
     fixture.detectChanges();
     expectTabs(fixture.nativeElement, [true, false], [false, true]);
@@ -508,7 +510,9 @@ describe('ngb-tabset', () => {
   describe('Custom config', () => {
     let config: NgbTabsetConfig;
 
-    beforeEach(() => { TestBed.configureTestingModule({imports: [NgbTabsetModule.forRoot()]}); });
+    beforeEach(() => {
+      TestBed.configureTestingModule({imports: [NgbTabsetModule.forRoot()]});
+    });
 
     beforeEach(inject([NgbTabsetConfig], (c: NgbTabsetConfig) => {
       config = c;

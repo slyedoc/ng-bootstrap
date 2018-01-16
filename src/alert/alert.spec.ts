@@ -1,11 +1,11 @@
-import {TestBed, ComponentFixture, inject} from '@angular/core/testing';
+import {Component} from '@angular/core';
+import {ComponentFixture, inject, TestBed} from '@angular/core/testing';
+
 import {createGenericTestComponent} from '../test/common';
 
-import {Component} from '@angular/core';
-
-import {NgbAlertModule} from './alert.module';
 import {NgbAlert} from './alert';
 import {NgbAlertConfig} from './alert-config';
+import {NgbAlertModule} from './alert.module';
 
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -19,9 +19,9 @@ function getCloseButton(element: HTMLElement): HTMLButtonElement {
 }
 
 describe('ngb-alert', () => {
-
-  beforeEach(
-      () => { TestBed.configureTestingModule({declarations: [TestComponent], imports: [NgbAlertModule.forRoot()]}); });
+  beforeEach(() => {
+    TestBed.configureTestingModule({declarations: [TestComponent], imports: [NgbAlertModule.forRoot()]});
+  });
 
   it('should initialize inputs with default values', () => {
     const defaultConfig = new NgbAlertConfig();
@@ -58,7 +58,9 @@ describe('ngb-alert', () => {
   describe('Custom config', () => {
     let config: NgbAlertConfig;
 
-    beforeEach(() => { TestBed.configureTestingModule({imports: [NgbAlertModule.forRoot()]}); });
+    beforeEach(() => {
+      TestBed.configureTestingModule({imports: [NgbAlertModule.forRoot()]});
+    });
 
     beforeEach(inject([NgbAlertConfig], (c: NgbAlertConfig) => {
       config = c;

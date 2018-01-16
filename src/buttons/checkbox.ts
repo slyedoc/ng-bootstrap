@@ -11,8 +11,8 @@ const NGB_CHECKBOX_VALUE_ACCESSOR = {
 
 
 /**
- * Easily create Bootstrap-style checkbox buttons. A value of a checked button is bound to a variable
- * specified via ngModel.
+ * Easily create Bootstrap-style checkbox buttons. A value of a checked button
+ * is bound to a variable specified via ngModel.
  */
 @Directive({
   selector: '[ngbButton][type=checkbox]',
@@ -63,9 +63,13 @@ export class NgbCheckBox implements ControlValueAccessor {
     this.writeValue(modelToPropagate);
   }
 
-  registerOnChange(fn: (value: any) => any): void { this.onChange = fn; }
+  registerOnChange(fn: (value: any) => any): void {
+    this.onChange = fn;
+  }
 
-  registerOnTouched(fn: () => any): void { this.onTouched = fn; }
+  registerOnTouched(fn: () => any): void {
+    this.onTouched = fn;
+  }
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;

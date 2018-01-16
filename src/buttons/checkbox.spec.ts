@@ -1,9 +1,9 @@
-import {TestBed, ComponentFixture, async, fakeAsync, tick} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {createGenericTestComponent} from '../test/common';
-
 import {Component} from '@angular/core';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {By} from '@angular/platform-browser';
+
+import {createGenericTestComponent} from '../test/common';
 
 import {NgbButtonsModule} from './buttons.module';
 import {NgbCheckBox} from './checkbox';
@@ -20,14 +20,12 @@ function getInput(nativeEl: HTMLElement): HTMLInputElement {
 }
 
 describe('NgbCheckBox', () => {
-
   beforeEach(() => {
     TestBed.configureTestingModule(
         {declarations: [TestComponent], imports: [NgbButtonsModule, FormsModule, ReactiveFormsModule]});
   });
 
   describe('bindings', () => {
-
     it('should mark input as checked / unchecked based on model change (default values)', fakeAsync(() => {
          const fixture =
              createTestComponent(`<label ngbButtonLabel><input type="checkbox" ngbButton [ngModel]="model"></label>`);
@@ -94,7 +92,6 @@ describe('NgbCheckBox', () => {
   });
 
   describe('user interactions', () => {
-
     it('should bind model value on change (default values)', fakeAsync(() => {
          const fixture = createTestComponent(`
         <label ngbButtonLabel>
@@ -148,9 +145,7 @@ describe('NgbCheckBox', () => {
       fixture.detectChanges();
       expect(getLabel(fixture.debugElement.nativeElement)).not.toHaveCssClass('focus');
     });
-
   });
-
 });
 
 @Component({selector: 'test-cmp', template: ''})

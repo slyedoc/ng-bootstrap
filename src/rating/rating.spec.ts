@@ -1,13 +1,13 @@
-import {TestBed, ComponentFixture, inject, async, fakeAsync, tick} from '@angular/core/testing';
+import {Component, DebugElement} from '@angular/core';
+import {async, ComponentFixture, fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {By} from '@angular/platform-browser';
+
 import {createGenericTestComponent} from '../test/common';
 
-import {Component, DebugElement} from '@angular/core';
-import {FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
-
-import {NgbRatingModule} from './rating.module';
 import {NgbRating} from './rating';
 import {NgbRatingConfig} from './rating-config';
-import {By} from '@angular/platform-browser';
+import {NgbRatingModule} from './rating.module';
 
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -44,7 +44,7 @@ function getDbgStar(element, num: number) {
   return element.queryAll(By.css('span:not(.sr-only)'))[num - 1];
 }
 
-function getState(element: DebugElement | HTMLElement) {
+function getState(element: DebugElement|HTMLElement) {
   const stars = getStars(element instanceof DebugElement ? element.nativeElement : element);
   return stars.map(star => star.textContent.trim() === String.fromCharCode(9733));
 }
@@ -459,7 +459,6 @@ describe('ngb-rating', () => {
   });
 
   describe('keyboard support', () => {
-
     it('should handle arrow keys', () => {
       const fixture = createTestComponent('<ngb-rating [rate]="3" [max]="5"></ngb-rating>');
 
@@ -516,7 +515,6 @@ describe('ngb-rating', () => {
   });
 
   describe('forms', () => {
-
     it('should work with template-driven form validation', async(() => {
          const html = `
         <form>
@@ -672,7 +670,9 @@ describe('ngb-rating', () => {
   describe('Custom config', () => {
     let config: NgbRatingConfig;
 
-    beforeEach(() => { TestBed.configureTestingModule({imports: [NgbRatingModule.forRoot()]}); });
+    beforeEach(() => {
+      TestBed.configureTestingModule({imports: [NgbRatingModule.forRoot()]});
+    });
 
     beforeEach(inject([NgbRatingConfig], (c: NgbRatingConfig) => {
       config = c;

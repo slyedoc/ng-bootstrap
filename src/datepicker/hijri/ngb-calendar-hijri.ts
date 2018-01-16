@@ -1,15 +1,22 @@
-import {NgbDate} from '../ngb-date';
-import {NgbPeriod, NgbCalendar} from '../ngb-calendar';
 import {Injectable} from '@angular/core';
+
 import {isNumber} from '../../util/util';
+import {NgbCalendar, NgbPeriod} from '../ngb-calendar';
+import {NgbDate} from '../ngb-date';
 
 @Injectable()
 export abstract class NgbCalendarHijri extends NgbCalendar {
-  getDaysPerWeek() { return 7; }
+  getDaysPerWeek() {
+    return 7;
+  }
 
-  getMonths() { return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; }
+  getMonths() {
+    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  }
 
-  getWeeksPerMonth() { return 6; }
+  getWeeksPerMonth() {
+    return 6;
+  }
 
   isValid(date: NgbDate): boolean {
     return date && isNumber(date.year) && isNumber(date.month) && isNumber(date.day) &&
@@ -76,7 +83,9 @@ export abstract class NgbCalendarHijri extends NgbCalendar {
    */
   abstract getDaysInIslamicMonth(month: number, year: number): number;
 
-  protected _isIslamicLeapYear(year: number): boolean { return (14 + 11 * year) % 30 < 11; }
+  protected _isIslamicLeapYear(year: number): boolean {
+    return (14 + 11 * year) % 30 < 11;
+  }
 
   /**
    * Returns the start of Hijri Month.
@@ -91,5 +100,7 @@ export abstract class NgbCalendarHijri extends NgbCalendar {
    * Returns the start of Hijri year.
    * `year` is any Hijri year.
    */
-  protected _getYearStart(year: number): number { return (year - 1) * 354 + Math.floor((3 + 11 * year) / 30.0); }
+  protected _getYearStart(year: number): number {
+    return (year - 1) * 354 + Math.floor((3 + 11 * year) / 30.0);
+  }
 }

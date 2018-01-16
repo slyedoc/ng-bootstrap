@@ -1,7 +1,9 @@
-import {NgbCalendarHijri} from './ngb-calendar-hijri';
-import {NgbDate} from '../ngb-date';
-import {NgbPeriod} from '../ngb-calendar';
 import {Injectable} from '@angular/core';
+
+import {NgbPeriod} from '../ngb-calendar';
+import {NgbDate} from '../ngb-date';
+
+import {NgbCalendarHijri} from './ngb-calendar-hijri';
 
 function isGregorianLeapYear(date: Date): boolean {
   const year = date.getFullYear();
@@ -17,8 +19,8 @@ function mod(a: number, b: number): number {
  * Uses a fixed cycle of alternating 29- and 30-day months,
  * with a leap day added to the last month of 11 out of every 30 years.
  * http://cldr.unicode.org/development/development-process/design-proposals/islamic-calendar-types
- * All the calculations here are based on the equations from "Calendrical Calculations" By Edward M. Reingold, Nachum
- * Dershowitz.
+ * All the calculations here are based on the equations from "Calendrical
+ * Calculations" By Edward M. Reingold, Nachum Dershowitz.
  */
 
 const GREGORIAN_EPOCH = 1721425.5;
@@ -27,8 +29,8 @@ const ISLAMIC_EPOCH = 1948439.5;
 @Injectable()
 export class NgbCalendarIslamicCivil extends NgbCalendarHijri {
   /**
-   * Returns the equivalent islamic(civil) date value for a give input Gregorian date.
-   * `gdate` is a JS Date to be converted to Hijri.
+   * Returns the equivalent islamic(civil) date value for a give input Gregorian
+   * date. `gdate` is a JS Date to be converted to Hijri.
    */
   fromGregorian(gdate: Date): NgbDate {
     const date = new Date(gdate);
@@ -125,7 +127,9 @@ export class NgbCalendarIslamicCivil extends NgbCalendarHijri {
     }
   }
 
-  getPrev(date: NgbDate, period: NgbPeriod = 'd', number = 1) { return this.getNext(date, period, -number); }
+  getPrev(date: NgbDate, period: NgbPeriod = 'd', number = 1) {
+    return this.getNext(date, period, -number);
+  }
 
   getWeekday(date: NgbDate) {
     const day = this.toGregorian(date).getDay();
@@ -149,5 +153,7 @@ export class NgbCalendarIslamicCivil extends NgbCalendarHijri {
     return Math.floor(Math.round((time - MuhDate.getTime()) / 86400000) / 7) + 1;
   }
 
-  getToday(): NgbDate { return this.fromGregorian(new Date()); }
+  getToday(): NgbDate {
+    return this.fromGregorian(new Date());
+  }
 }

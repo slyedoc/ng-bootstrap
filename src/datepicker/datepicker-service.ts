@@ -1,13 +1,14 @@
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {filter} from 'rxjs/operator/filter';
+import {Subject} from 'rxjs/Subject';
+
+import {isInteger} from '../util/util';
+
+import {buildMonths, checkDateInRange, checkMinBeforeMax, isChangedDate, isDateSelectable} from './datepicker-tools';
+import {DatepickerViewModel, NgbMarkDisabled} from './datepicker-view-model';
 import {NgbCalendar, NgbPeriod} from './ngb-calendar';
 import {NgbDate} from './ngb-date';
-import {DatepickerViewModel, NgbMarkDisabled} from './datepicker-view-model';
-import {Injectable} from '@angular/core';
-import {isInteger} from '../util/util';
-import {Subject} from 'rxjs/Subject';
-import {buildMonths, checkDateInRange, checkMinBeforeMax, isChangedDate, isDateSelectable} from './datepicker-tools';
-
-import {filter} from 'rxjs/operator/filter';
-import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class NgbDatepickerService {
@@ -29,7 +30,9 @@ export class NgbDatepickerService {
     return filter.call(this._model$.asObservable(), model => model.months.length > 0);
   }
 
-  get select$(): Observable<NgbDate> { return filter.call(this._select$.asObservable(), date => date !== null); }
+  get select$(): Observable<NgbDate> {
+    return filter.call(this._select$.asObservable(), date => date !== null);
+  }
 
   set disabled(disabled: boolean) {
     if (this._state.disabled !== disabled) {
@@ -73,7 +76,7 @@ export class NgbDatepickerService {
     }
   }
 
-  set navigation(navigation: 'select' | 'arrows' | 'none') {
+  set navigation(navigation: 'select'|'arrows'|'none') {
     if (this._state.navigation !== navigation) {
       this._nextState({navigation: navigation});
     }
@@ -139,7 +142,6 @@ export class NgbDatepickerService {
     state.months.forEach(month => {
       month.weeks.forEach(week => {
         week.days.forEach(day => {
-
           // patch focus flag
           if (state.focusDate) {
             day.context.focused = state.focusDate.equals(day.date) && state.focusVisible;

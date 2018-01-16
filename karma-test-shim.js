@@ -54,12 +54,23 @@ System.import('@angular/core/testing')
             browserTesting.BrowserDynamicTestingModule, browserTesting.platformBrowserDynamicTesting());
       });
     })
-    .then(function() { return Promise.all(customMatchers()); })
-    .then(function() { return Promise.all(resolveTestFiles()); })
-    .then(function() { __karma__.start(); }, function(error) { __karma__.error(error.stack || error); });
+    .then(function() {
+      return Promise.all(customMatchers());
+    })
+    .then(function() {
+      return Promise.all(resolveTestFiles());
+    })
+    .then(
+        function() {
+          __karma__.start();
+        },
+        function(error) {
+          __karma__.error(error.stack || error);
+        });
 
 function createPathRecords(pathsMapping, appPath) {
-  // creates local module name mapping to global path with karma's fingerprint in path, e.g.:
+  // creates local module name mapping to global path with karma's fingerprint
+  // in path, e.g.:
   // './accordion/accordion':
   // '/base/temp/accordion/accordion.js?f4523daf879cfb7310ef6242682ccf10b2041b3e'
   var pathParts = appPath.split('/');

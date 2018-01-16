@@ -1,25 +1,26 @@
 import {
-  Component,
-  Directive,
-  Input,
-  Output,
-  EventEmitter,
   ChangeDetectionStrategy,
-  OnInit,
-  OnDestroy,
-  Injector,
-  Renderer2,
-  ComponentRef,
-  ElementRef,
-  TemplateRef,
-  ViewContainerRef,
+  Component,
   ComponentFactoryResolver,
-  NgZone
+  ComponentRef,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  Injector,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  Output,
+  Renderer2,
+  TemplateRef,
+  ViewContainerRef
 } from '@angular/core';
 
-import {listenToTriggers} from '../util/triggers';
-import {positionElements, Placement, PlacementArray} from '../util/positioning';
 import {PopupService} from '../util/popup';
+import {Placement, PlacementArray, positionElements} from '../util/positioning';
+import {listenToTriggers} from '../util/triggers';
+
 import {NgbPopoverConfig} from './popover-config';
 
 let nextId = 0;
@@ -94,7 +95,7 @@ export class NgbPopover implements OnInit, OnDestroy {
   /**
    * Content to be displayed as popover.
    */
-  @Input() ngbPopover: string | TemplateRef<any>;
+  @Input() ngbPopover: string|TemplateRef<any>;
   /**
    * Title of a popover.
    */
@@ -107,7 +108,8 @@ export class NgbPopover implements OnInit, OnDestroy {
    */
   @Input() placement: PlacementArray;
   /**
-   * Specifies events that should trigger. Supports a space separated list of event names.
+   * Specifies events that should trigger. Supports a space separated list of
+   * event names.
    */
   @Input() triggers: string;
   /**
@@ -142,17 +144,17 @@ export class NgbPopover implements OnInit, OnDestroy {
 
     this._zoneSubscription = ngZone.onStable.subscribe(() => {
       if (this._windowRef) {
-        this._windowRef.instance.applyPlacement(
-            positionElements(
-                this._elementRef.nativeElement, this._windowRef.location.nativeElement, this.placement,
-                this.container === 'body'));
+        this._windowRef.instance.applyPlacement(positionElements(
+            this._elementRef.nativeElement, this._windowRef.location.nativeElement, this.placement,
+            this.container === 'body'));
       }
     });
   }
 
   /**
-   * Opens an element’s popover. This is considered a “manual” triggering of the popover.
-   * The context is an optional value to be injected into the popover template when it is created.
+   * Opens an element’s popover. This is considered a “manual” triggering of the
+   * popover. The context is an optional value to be injected into the popover
+   * template when it is created.
    */
   open(context?: any) {
     if (!this._windowRef) {
@@ -166,22 +168,23 @@ export class NgbPopover implements OnInit, OnDestroy {
         window.document.querySelector(this.container).appendChild(this._windowRef.location.nativeElement);
       }
 
-      // apply styling to set basic css-classes on target element, before going for positioning
+      // apply styling to set basic css-classes on target element, before going
+      // for positioning
       this._windowRef.changeDetectorRef.detectChanges();
       this._windowRef.changeDetectorRef.markForCheck();
 
       // position popover along the element
-      this._windowRef.instance.applyPlacement(
-          positionElements(
-              this._elementRef.nativeElement, this._windowRef.location.nativeElement, this.placement,
-              this.container === 'body'));
+      this._windowRef.instance.applyPlacement(positionElements(
+          this._elementRef.nativeElement, this._windowRef.location.nativeElement, this.placement,
+          this.container === 'body'));
 
       this.shown.emit();
     }
   }
 
   /**
-   * Closes an element’s popover. This is considered a “manual” triggering of the popover.
+   * Closes an element’s popover. This is considered a “manual” triggering of
+   * the popover.
    */
   close(): void {
     if (this._windowRef) {
@@ -193,7 +196,8 @@ export class NgbPopover implements OnInit, OnDestroy {
   }
 
   /**
-   * Toggles an element’s popover. This is considered a “manual” triggering of the popover.
+   * Toggles an element’s popover. This is considered a “manual” triggering of
+   * the popover.
    */
   toggle(): void {
     if (this._windowRef) {
@@ -206,7 +210,9 @@ export class NgbPopover implements OnInit, OnDestroy {
   /**
    * Returns whether or not the popover is currently being shown
    */
-  isOpen(): boolean { return this._windowRef != null; }
+  isOpen(): boolean {
+    return this._windowRef != null;
+  }
 
   ngOnInit() {
     this._unregisterListenersFn = listenToTriggers(

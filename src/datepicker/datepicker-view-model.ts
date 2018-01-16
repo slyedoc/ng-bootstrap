@@ -1,6 +1,6 @@
+import {DayTemplateContext} from './datepicker-day-template-context';
 import {NgbDate} from './ngb-date';
 import {NgbDateStruct} from './ngb-date-struct';
-import {DayTemplateContext} from './datepicker-day-template-context';
 
 export type NgbMarkDisabled = (date: NgbDateStruct, current: {year: number, month: number}) => boolean;
 

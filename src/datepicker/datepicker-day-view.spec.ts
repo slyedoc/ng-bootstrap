@@ -1,8 +1,8 @@
+import {Component} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 
-import {Component} from '@angular/core';
-import {NgbDatepickerModule} from './datepicker.module';
 import {NgbDatepickerDayView} from './datepicker-day-view';
+import {NgbDatepickerModule} from './datepicker.module';
 import {NgbDateStruct} from './ngb-date-struct';
 
 function getElement(element: HTMLElement): HTMLElement {
@@ -10,7 +10,6 @@ function getElement(element: HTMLElement): HTMLElement {
 }
 
 describe('ngbDatepickerDayView', () => {
-
   beforeEach(() => {
     TestBed.overrideModule(NgbDatepickerModule, {set: {exports: [NgbDatepickerDayView]}});
     TestBed.configureTestingModule({declarations: [TestComponent], imports: [NgbDatepickerModule.forRoot()]});

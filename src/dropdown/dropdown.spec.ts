@@ -1,12 +1,12 @@
-import {TestBed, ComponentFixture, inject} from '@angular/core/testing';
-import {createGenericTestComponent} from '../test/common';
-
 import {Component} from '@angular/core';
+import {ComponentFixture, inject, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 
-import {NgbDropdownModule} from './dropdown.module';
+import {createGenericTestComponent} from '../test/common';
+
 import {NgbDropdown} from './dropdown';
 import {NgbDropdownConfig} from './dropdown-config';
+import {NgbDropdownModule} from './dropdown.module';
 
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -47,7 +47,6 @@ const jasmineMatchers = {
 };
 
 describe('ngb-dropdown', () => {
-
   beforeEach(() => {
     jasmine.addMatchers(jasmineMatchers);
     TestBed.configureTestingModule({declarations: [TestComponent], imports: [NgbDropdownModule.forRoot()]});
@@ -443,9 +442,7 @@ describe('ngb-dropdown-toggle', () => {
   });
 
   describe('outside and inside clicks', () => {
-
     it('should not close on menu clicks when the "outside" option is used', () => {
-
       const html = `
       <div ngbDropdown [open]="true" autoClose="outside">
           <button ngbDropdownToggle>Toggle dropdown</button>
@@ -474,7 +471,6 @@ describe('ngb-dropdown-toggle', () => {
     });
 
     it('should not close on outside clicks when the "inside" option is used', () => {
-
       const html = `
       <button id="outside">Outside</button>
       <div ngbDropdown [open]="true" autoClose="inside">
@@ -502,7 +498,6 @@ describe('ngb-dropdown-toggle', () => {
       fixture.detectChanges();
       expect(compiled).not.toBeShown();
     });
-
   });
 
   describe('Custom config', () => {

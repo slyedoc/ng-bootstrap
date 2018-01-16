@@ -1,9 +1,9 @@
-import {TestBed, ComponentFixture, async} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {createGenericTestComponent} from '../test/common';
-
 import {Component} from '@angular/core';
-import {Validators, FormControl, FormGroup, FormsModule, ReactiveFormsModule, NgModel} from '@angular/forms';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {FormControl, FormGroup, FormsModule, NgModel, ReactiveFormsModule, Validators} from '@angular/forms';
+import {By} from '@angular/platform-browser';
+
+import {createGenericTestComponent} from '../test/common';
 
 import {NgbButtonsModule} from './buttons.module';
 
@@ -192,7 +192,6 @@ describe('ngbRadioGroup', () => {
      }));
 
   it('can be used with ngFor', async(() => {
-
        const forHtml = `<div [(ngModel)]="model" ngbRadioGroup>
           <label *ngFor="let v of values" ngbButtonLabel>
             <input ngbButton type="radio" name="radio" [value]="v"/> {{ v }}
@@ -213,7 +212,6 @@ describe('ngbRadioGroup', () => {
      }));
 
   it('cleans up the model when radio inputs are added / removed', async(() => {
-
        const ifHtml = `<div [(ngModel)]="model" ngbRadioGroup>
         <label ngbButtonLabel>
           <input ngbButton type="radio" name="radio" [value]="values[0]"/> {{ values[0] }}
@@ -239,7 +237,8 @@ describe('ngbRadioGroup', () => {
        expectRadios(fixture.nativeElement, [0, 0]);
        expect(fixture.componentInstance.model).toBeUndefined();
 
-       // hiding/showing selected radio -> expecting model to unchange, but none selected
+       // hiding/showing selected radio -> expecting model to unchange, but none
+       // selected
        fixture.componentInstance.model = values[1];
        fixture.detectChanges();
        fixture.whenStable().then(() => {

@@ -1,9 +1,9 @@
 import {ComponentRef} from '@angular/core';
 
+import {ContentRef} from '../util/popup';
+
 import {NgbModalBackdrop} from './modal-backdrop';
 import {NgbModalWindow} from './modal-window';
-
-import {ContentRef} from '../util/popup';
 
 /**
  * A reference to an active (currently opened) modal. Instances of this class
@@ -42,14 +42,17 @@ export class NgbModalRef {
   set componentInstance(instance: any) {}
 
   /**
-   * A promise that is resolved when a modal is closed and rejected when a modal is dismissed.
+   * A promise that is resolved when a modal is closed and rejected when a modal
+   * is dismissed.
    */
   result: Promise<any>;
 
   constructor(
       private _windowCmptRef: ComponentRef<NgbModalWindow>, private _contentRef: ContentRef,
       private _backdropCmptRef?: ComponentRef<NgbModalBackdrop>, private _beforeDismiss?: Function) {
-    _windowCmptRef.instance.dismissEvent.subscribe((reason: any) => { this.dismiss(reason); });
+    _windowCmptRef.instance.dismissEvent.subscribe((reason: any) => {
+      this.dismiss(reason);
+    });
 
     this.result = new Promise((resolve, reject) => {
       this._resolve = resolve;

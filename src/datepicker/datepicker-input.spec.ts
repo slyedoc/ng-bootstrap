@@ -1,28 +1,26 @@
-import {TestBed, ComponentFixture, fakeAsync, tick} from '@angular/core/testing';
+import {Component} from '@angular/core';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {FormsModule, NgForm} from '@angular/forms';
 import {By} from '@angular/platform-browser';
+
 import {createGenericTestComponent} from '../test/common';
 
-import {Component} from '@angular/core';
-import {FormsModule, NgForm} from '@angular/forms';
-
-import {NgbDatepickerModule} from './datepicker.module';
-import {NgbInputDatepicker} from './datepicker-input';
 import {NgbDatepicker} from './datepicker';
-import {NgbDateStruct} from './ngb-date-struct';
+import {NgbInputDatepicker} from './datepicker-input';
+import {NgbDatepickerModule} from './datepicker.module';
 import {NgbDate} from './ngb-date';
+import {NgbDateStruct} from './ngb-date-struct';
 
 const createTestCmpt = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
 
 describe('NgbInputDatepicker', () => {
-
   beforeEach(() => {
     TestBed.configureTestingModule(
         {declarations: [TestComponent], imports: [NgbDatepickerModule.forRoot(), FormsModule]});
   });
 
   describe('open, close and toggle', () => {
-
     it('should allow controlling datepicker popup from outside', () => {
       const fixture = createTestCmpt(`
           <input ngbDatepicker #d="ngbDatepicker">
@@ -49,8 +47,9 @@ describe('NgbInputDatepicker', () => {
       expect(fixture.nativeElement.querySelector('ngb-datepicker')).toBeNull();
     });
 
-    it('should support the "position" option',
-       () => { createTestCmpt(`<input ngbDatepicker #d="ngbDatepicker" [placement]="'bottom-right'">`); });
+    it('should support the "position" option', () => {
+      createTestCmpt(`<input ngbDatepicker #d="ngbDatepicker" [placement]="'bottom-right'">`);
+    });
 
     it('should focus the datepicker after opening', () => {
       const fixture = createTestCmpt(`
@@ -87,7 +86,6 @@ describe('NgbInputDatepicker', () => {
   });
 
   describe('ngModel interactions', () => {
-
     it('should format bound date as ISO (by default) in the input field', fakeAsync(() => {
          const fixture = createTestCmpt(`<input ngbDatepicker [ngModel]="date">`);
          const input = fixture.nativeElement.querySelector('input');
@@ -272,7 +270,6 @@ describe('NgbInputDatepicker', () => {
 
 
   describe('manual data entry', () => {
-
     it('should reformat value entered by a user when it is valid', fakeAsync(() => {
          const fixture = createTestCmpt(`<input ngbDatepicker (ngModelChange)="date">`);
          const inputDebugEl = fixture.debugElement.query(By.css('input'));
@@ -295,13 +292,10 @@ describe('NgbInputDatepicker', () => {
 
          expect(inputDebugEl.nativeElement.value).toBe('2016-09-aa');
        }));
-
   });
 
   describe('validation', () => {
-
     describe('values set from model', () => {
-
       it('should not return errors for valid model', fakeAsync(() => {
            const fixture = createTestCmpt(
                `<form><input ngbDatepicker [ngModel]="{year: 2017, month: 04, day: 04}" name="dp"></form>`);
@@ -435,11 +429,9 @@ describe('NgbInputDatepicker', () => {
            expect(form.control.valid).toBeTruthy();
          }));
     });
-
   });
 
   describe('options', () => {
-
     it('should propagate the "dayTemplate" option', () => {
       const fixture = createTestCmpt(`<ng-template #t></ng-template><input ngbDatepicker [dayTemplate]="t">`);
       const dpInput = fixture.debugElement.query(By.directive(NgbInputDatepicker)).injector.get(NgbInputDatepicker);
@@ -593,7 +585,6 @@ describe('NgbInputDatepicker', () => {
   });
 
   describe('container', () => {
-
     it('should be appended to the element matching the selector passed to "container"', () => {
       const selector = 'body';
       const fixture = createTestCmpt(`
@@ -643,11 +634,17 @@ class TestComponent {
 
   onNavigate() {}
 
-  open(d: NgbInputDatepicker) { d.open(); }
+  open(d: NgbInputDatepicker) {
+    d.open();
+  }
 
-  close(d: NgbInputDatepicker) { d.close(); }
+  close(d: NgbInputDatepicker) {
+    d.close();
+  }
 
-  toggle(d: NgbInputDatepicker) { d.toggle(); }
+  toggle(d: NgbInputDatepicker) {
+    d.toggle();
+  }
 
   noop() {}
 }

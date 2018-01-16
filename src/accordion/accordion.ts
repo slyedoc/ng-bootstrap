@@ -18,7 +18,8 @@ import {NgbAccordionConfig} from './accordion-config';
 let nextId = 0;
 
 /**
- * This directive should be used to wrap accordion panel titles that need to contain HTML markup or other directives.
+ * This directive should be used to wrap accordion panel titles that need to
+ * contain HTML markup or other directives.
  */
 @Directive({selector: 'ng-template[ngbPanelTitle]'})
 export class NgbPanelTitle {
@@ -34,8 +35,8 @@ export class NgbPanelContent {
 }
 
 /**
- * The NgbPanel directive represents an individual panel with the title and collapsible
- * content
+ * The NgbPanel directive represents an individual panel with the title and
+ * collapsible content
  */
 @Directive({selector: 'ngb-panel'})
 export class NgbPanel {
@@ -63,7 +64,8 @@ export class NgbPanel {
 
   /**
    *  Accordion's types of panels to be applied per panel basis.
-   *  Bootstrap 4 recognizes the following types: "success", "info", "warning" and "danger".
+   *  Bootstrap 4 recognizes the following types: "success", "info", "warning"
+   * and "danger".
    */
   @Input() type: string;
 
@@ -72,7 +74,8 @@ export class NgbPanel {
 }
 
 /**
- * The payload of the change event fired right before toggling an accordion panel
+ * The payload of the change event fired right before toggling an accordion
+ * panel
  */
 export interface NgbPanelChangeEvent {
   /**
@@ -122,9 +125,10 @@ export class NgbAccordion implements AfterContentChecked {
   @ContentChildren(NgbPanel) panels: QueryList<NgbPanel>;
 
   /**
-   * An array or comma separated strings of panel identifiers that should be opened
+   * An array or comma separated strings of panel identifiers that should be
+   * opened
    */
-  @Input() activeIds: string | string[] = [];
+  @Input() activeIds: string|string[] = [];
 
   /**
    *  Whether the other panels should be closed when a panel is opened
@@ -138,12 +142,14 @@ export class NgbAccordion implements AfterContentChecked {
 
   /**
    *  Accordion's types of panels to be applied globally.
-   *  Bootstrap 4 recognizes the following types: "success", "info", "warning" and "danger".
+   *  Bootstrap 4 recognizes the following types: "success", "info", "warning"
+   * and "danger".
    */
   @Input() type: string;
 
   /**
-   * A panel change event fired right before the panel toggle happens. See NgbPanelChangeEvent for payload details
+   * A panel change event fired right before the panel toggle happens. See
+   * NgbPanelChangeEvent for payload details
    */
   @Output() panelChange = new EventEmitter<NgbPanelChangeEvent>();
 
@@ -161,8 +167,13 @@ export class NgbAccordion implements AfterContentChecked {
     if (panel && !panel.disabled) {
       let defaultPrevented = false;
 
-      this.panelChange.emit(
-          {panelId: panelId, nextState: !panel.isOpen, preventDefault: () => { defaultPrevented = true; }});
+      this.panelChange.emit({
+        panelId: panelId,
+        nextState: !panel.isOpen,
+        preventDefault: () => {
+          defaultPrevented = true;
+        }
+      });
 
       if (!defaultPrevented) {
         panel.isOpen = !panel.isOpen;

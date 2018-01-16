@@ -1,21 +1,21 @@
-import {TestBed, ComponentFixture, async, inject} from '@angular/core/testing';
-import {createGenericTestComponent} from '../test/common';
-import {getMonthSelect, getYearSelect, getNavigationLinks} from '../test/datepicker/common';
-
-import {Component, TemplateRef, DebugElement} from '@angular/core';
+import {Component, DebugElement, TemplateRef} from '@angular/core';
+import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {By} from '@angular/platform-browser';
-import {FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators} from '@angular/forms';
 
+import {createGenericTestComponent} from '../test/common';
+import {getMonthSelect, getNavigationLinks, getYearSelect} from '../test/datepicker/common';
+
+import {NgbDatepicker} from './datepicker';
+import {NgbDatepickerConfig} from './datepicker-config';
+import {DayTemplateContext} from './datepicker-day-template-context';
+import {NgbDatepickerDayView} from './datepicker-day-view';
+import {NgbDatepickerMonthView} from './datepicker-month-view';
+import {NgbDatepickerNavigation} from './datepicker-navigation';
+import {NgbDatepickerNavigationSelect} from './datepicker-navigation-select';
 import {NgbDatepickerModule} from './datepicker.module';
 import {NgbDate} from './ngb-date';
-import {NgbDatepickerConfig} from './datepicker-config';
-import {NgbDatepicker} from './datepicker';
-import {DayTemplateContext} from './datepicker-day-template-context';
 import {NgbDateStruct} from './ngb-date-struct';
-import {NgbDatepickerMonthView} from './datepicker-month-view';
-import {NgbDatepickerDayView} from './datepicker-day-view';
-import {NgbDatepickerNavigationSelect} from './datepicker-navigation-select';
-import {NgbDatepickerNavigation} from './datepicker-navigation';
 
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -38,8 +38,12 @@ function triggerKeyDown(element: DebugElement, keyCode: number, shiftKey = false
     shiftKey: shiftKey,
     defaultPrevented: false,
     propagationStopped: false,
-    stopPropagation: function() { this.propagationStopped = true; },
-    preventDefault: function() { this.defaultPrevented = true; }
+    stopPropagation: function() {
+      this.propagationStopped = true;
+    },
+    preventDefault: function() {
+      this.defaultPrevented = true;
+    }
   };
   element.triggerEventHandler('keydown', event);
   return event;
@@ -49,7 +53,9 @@ function expectFilteredDaysToBe(
     element: DebugElement, expectedDates: NgbDate[],
     filterFn: (dayView: NgbDatepickerDayView, element: DebugElement) => boolean) {
   const days = element.queryAll(By.directive(NgbDatepickerDayView))
-                   .filter((day: DebugElement) => { return filterFn(day.componentInstance, day); })
+                   .filter((day: DebugElement) => {
+                     return filterFn(day.componentInstance, day);
+                   })
                    .map((value: DebugElement) => NgbDate.from(value.componentInstance.date));
   expect(days).toEqual(expectedDates);
 }
@@ -90,7 +96,6 @@ function customizeConfig(config: NgbDatepickerConfig) {
 }
 
 describe('ngb-datepicker', () => {
-
   beforeEach(() => {
     TestBed.configureTestingModule(
         {declarations: [TestComponent], imports: [NgbDatepickerModule.forRoot(), FormsModule, ReactiveFormsModule]});
@@ -475,7 +480,6 @@ describe('ngb-datepicker', () => {
   });
 
   describe('ngModel', () => {
-
     it('should update model based on calendar clicks', async(() => {
          const fixture = createTestComponent(
              `<ngb-datepicker [startDate]="date" [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="model"></ngb-datepicker>`);
@@ -499,7 +503,6 @@ describe('ngb-datepicker', () => {
                return fixture.whenStable();
              })
              .then(() => {
-
                const dates = getDates(fixture.nativeElement);
                dates[0].click();  // 1 AUG 2016
                expect(fixture.componentInstance.model).toBeFalsy();
@@ -543,7 +546,6 @@ describe('ngb-datepicker', () => {
              `<ngb-datepicker [startDate]="date" [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="model"></ngb-datepicker>`);
          fixture.detectChanges();
          fixture.whenStable().then(() => {
-
            let dates = getDates(fixture.nativeElement);
 
            dates[31].click();  // 1 SEP 2016
@@ -636,7 +638,6 @@ describe('ngb-datepicker', () => {
   });
 
   describe('keyboard navigation', () => {
-
     const template = `<ngb-datepicker #dp
         [startDate]="date" [minDate]="minDate"
         [maxDate]="maxDate" [displayMonths]="2"
@@ -813,11 +814,9 @@ describe('ngb-datepicker', () => {
       expectFocusedDate(datepicker, new NgbDate(2016, 1, 1));
       expectSelectedDate(datepicker, null);
     });
-
   });
 
   describe('forms', () => {
-
     it('should work with template-driven form validation', async(() => {
          const fixture = createTestComponent(`
         <form>
@@ -898,7 +897,9 @@ describe('ngb-datepicker', () => {
   describe('Custom config', () => {
     let config: NgbDatepickerConfig;
 
-    beforeEach(() => { TestBed.configureTestingModule({imports: [NgbDatepickerModule.forRoot()]}); });
+    beforeEach(() => {
+      TestBed.configureTestingModule({imports: [NgbDatepickerModule.forRoot()]});
+    });
 
     beforeEach(inject([NgbDatepickerConfig], (c: NgbDatepickerConfig) => {
       config = c;
@@ -942,7 +943,9 @@ class TestComponent {
   disabledForm = new FormGroup({control: new FormControl({value: null, disabled: true})});
   model;
   showWeekdays = true;
-  markDisabled = (date: NgbDateStruct) => { return NgbDate.from(date).equals(new NgbDate(2016, 8, 22)); };
+  markDisabled = (date: NgbDateStruct) => {
+    return NgbDate.from(date).equals(new NgbDate(2016, 8, 22));
+  };
   onNavigate = () => {};
   onSelect = () => {};
 }

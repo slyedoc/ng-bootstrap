@@ -1,7 +1,8 @@
-import {Component, Input, forwardRef, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, forwardRef, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
-import {isNumber, padNumber, toInteger, isDefined} from '../util/util';
+import {isDefined, isNumber, padNumber, toInteger} from '../util/util';
+
 import {NgbTime} from './ngb-time';
 import {NgbTimepickerConfig} from './timepicker-config';
 
@@ -124,8 +125,7 @@ const NGB_TIMEPICKER_VALUE_ACCESSOR = {
   `,
   providers: [NGB_TIMEPICKER_VALUE_ACCESSOR]
 })
-export class NgbTimepicker implements ControlValueAccessor,
-    OnChanges {
+export class NgbTimepicker implements ControlValueAccessor, OnChanges {
   disabled: boolean;
   model: NgbTime;
 
@@ -167,7 +167,7 @@ export class NgbTimepicker implements ControlValueAccessor,
   /**
    * To set the size of the inputs and button
    */
-  @Input() size: 'small' | 'medium' | 'large';
+  @Input() size: 'small'|'medium'|'large';
 
   constructor(config: NgbTimepickerConfig) {
     this.meridian = config.meridian;
@@ -191,11 +191,17 @@ export class NgbTimepicker implements ControlValueAccessor,
     }
   }
 
-  registerOnChange(fn: (value: any) => any): void { this.onChange = fn; }
+  registerOnChange(fn: (value: any) => any): void {
+    this.onChange = fn;
+  }
 
-  registerOnTouched(fn: () => any): void { this.onTouched = fn; }
+  registerOnTouched(fn: () => any): void {
+    this.onTouched = fn;
+  }
 
-  setDisabledState(isDisabled: boolean) { this.disabled = isDisabled; }
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+  }
 
   changeHour(step: number) {
     this.model.changeHour(step);
@@ -251,11 +257,17 @@ export class NgbTimepicker implements ControlValueAccessor,
     }
   }
 
-  formatMinSec(value: number) { return padNumber(value); }
+  formatMinSec(value: number) {
+    return padNumber(value);
+  }
 
-  setFormControlSize() { return {'form-control-sm': this.size === 'small', 'form-control-lg': this.size === 'large'}; }
+  setFormControlSize() {
+    return {'form-control-sm': this.size === 'small', 'form-control-lg': this.size === 'large'};
+  }
 
-  setButtonSize() { return {'btn-sm': this.size === 'small', 'btn-lg': this.size === 'large'}; }
+  setButtonSize() {
+    return {'btn-sm': this.size === 'small', 'btn-lg': this.size === 'large'};
+  }
 
 
   ngOnChanges(changes: SimpleChanges): void {

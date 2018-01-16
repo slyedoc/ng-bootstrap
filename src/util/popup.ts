@@ -1,12 +1,12 @@
 import {
-  Injector,
-  TemplateRef,
-  ViewRef,
-  ViewContainerRef,
-  Renderer2,
-  ComponentRef,
   ComponentFactory,
-  ComponentFactoryResolver
+  ComponentFactoryResolver,
+  ComponentRef,
+  Injector,
+  Renderer2,
+  TemplateRef,
+  ViewContainerRef,
+  ViewRef
 } from '@angular/core';
 
 export class ContentRef {
@@ -24,7 +24,7 @@ export class PopupService<T> {
     this._windowFactory = componentFactoryResolver.resolveComponentFactory<T>(type);
   }
 
-  open(content?: string | TemplateRef<any>, context?: any): ComponentRef<T> {
+  open(content?: string|TemplateRef<any>, context?: any): ComponentRef<T> {
     if (!this._windowRef) {
       this._contentRef = this._getContentRef(content, context);
       this._windowRef =
@@ -46,7 +46,7 @@ export class PopupService<T> {
     }
   }
 
-  private _getContentRef(content: string | TemplateRef<any>, context?: any): ContentRef {
+  private _getContentRef(content: string|TemplateRef<any>, context?: any): ContentRef {
     if (!content) {
       return new ContentRef([]);
     } else if (content instanceof TemplateRef) {

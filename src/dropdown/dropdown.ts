@@ -1,18 +1,20 @@
 import {
+  ContentChild,
+  Directive,
+  ElementRef,
+  EventEmitter,
   forwardRef,
   Inject,
-  Directive,
   Input,
-  Output,
-  EventEmitter,
-  ElementRef,
-  ContentChild,
   NgZone,
-  Renderer2,
-  OnInit
+  OnInit,
+  Output,
+  Renderer2
 } from '@angular/core';
+
+import {Placement, PlacementArray, positionElements} from '../util/positioning';
+
 import {NgbDropdownConfig} from './dropdown-config';
-import {positionElements, PlacementArray, Placement} from '../util/positioning';
 
 /**
  */
@@ -26,7 +28,9 @@ export class NgbDropdownMenu {
       @Inject(forwardRef(() => NgbDropdown)) public dropdown, private _elementRef: ElementRef,
       private _renderer: Renderer2) {}
 
-  isEventFrom($event) { return this._elementRef.nativeElement.contains($event.target); }
+  isEventFrom($event) {
+    return this._elementRef.nativeElement.contains($event.target);
+  }
 
   position(triggerEl, placement) {
     this.applyPlacement(positionElements(triggerEl, this._elementRef.nativeElement, placement));
@@ -68,9 +72,13 @@ export class NgbDropdownToggle {
     this.anchorEl = _elementRef.nativeElement;
   }
 
-  toggleOpen() { this.dropdown.toggle(); }
+  toggleOpen() {
+    this.dropdown.toggle();
+  }
 
-  isEventFrom($event) { return this._elementRef.nativeElement.contains($event.target); }
+  isEventFrom($event) {
+    return this._elementRef.nativeElement.contains($event.target);
+  }
 }
 
 /**
@@ -93,13 +101,15 @@ export class NgbDropdown implements OnInit {
   @ContentChild(NgbDropdownToggle) private _toggle: NgbDropdownToggle;
 
   /**
-   * Indicates that dropdown should be closed when selecting one of dropdown items (click) or pressing ESC.
-   * When it is true (default) dropdowns are automatically closed on both outside and inside (menu) clicks.
-   * When it is false dropdowns are never automatically closed.
-   * When it is 'outside' dropdowns are automatically closed on outside clicks but not on menu clicks.
-   * When it is 'inside' dropdowns are automatically on menu clicks but not on outside clicks.
+   * Indicates that dropdown should be closed when selecting one of dropdown
+   * items (click) or pressing ESC. When it is true (default) dropdowns are
+   * automatically closed on both outside and inside (menu) clicks. When it is
+   * false dropdowns are never automatically closed. When it is 'outside'
+   * dropdowns are automatically closed on outside clicks but not on menu
+   * clicks. When it is 'inside' dropdowns are automatically on menu clicks but
+   * not on outside clicks.
    */
-  @Input() autoClose: boolean | 'outside' | 'inside';
+  @Input() autoClose: boolean|'outside'|'inside';
 
   /**
    *  Defines whether or not the dropdown-menu is open initially.
@@ -123,7 +133,9 @@ export class NgbDropdown implements OnInit {
   constructor(config: NgbDropdownConfig, ngZone: NgZone) {
     this.placement = config.placement;
     this.autoClose = config.autoClose;
-    this._zoneSubscription = ngZone.onStable.subscribe(() => { this._positionMenu(); });
+    this._zoneSubscription = ngZone.onStable.subscribe(() => {
+      this._positionMenu();
+    });
   }
 
   ngOnInit() {
@@ -135,7 +147,9 @@ export class NgbDropdown implements OnInit {
   /**
    * Checks if the dropdown menu is open or not.
    */
-  isOpen(): boolean { return this._open; }
+  isOpen(): boolean {
+    return this._open;
+  }
 
   /**
    * Opens the dropdown menu of a given navbar or tabbed navigation.
@@ -187,11 +201,17 @@ export class NgbDropdown implements OnInit {
     }
   }
 
-  ngOnDestroy() { this._zoneSubscription.unsubscribe(); }
+  ngOnDestroy() {
+    this._zoneSubscription.unsubscribe();
+  }
 
-  private _isEventFromToggle($event) { return this._toggle ? this._toggle.isEventFrom($event) : false; }
+  private _isEventFromToggle($event) {
+    return this._toggle ? this._toggle.isEventFrom($event) : false;
+  }
 
-  private _isEventFromMenu($event) { return this._menu ? this._menu.isEventFrom($event) : false; }
+  private _isEventFromMenu($event) {
+    return this._menu ? this._menu.isEventFrom($event) : false;
+  }
 
   private _positionMenu() {
     if (this.isOpen() && this._menu && this._toggle) {

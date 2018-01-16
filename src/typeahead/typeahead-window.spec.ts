@@ -1,24 +1,22 @@
-import {TestBed, ComponentFixture} from '@angular/core/testing';
-import {createGenericTestComponent} from '../test/common';
-
 import {Component, ViewChild} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+
+import {createGenericTestComponent} from '../test/common';
+import {expectResults, getWindowLinks} from '../test/typeahead/common';
 
 import {NgbTypeaheadWindow} from './typeahead-window';
-import {expectResults, getWindowLinks} from '../test/typeahead/common';
 import {NgbTypeaheadModule} from './typeahead.module';
 
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
 
 describe('ngb-typeahead-window', () => {
-
   beforeEach(() => {
     TestBed.overrideModule(NgbTypeaheadModule, {set: {exports: [NgbTypeaheadWindow]}});
     TestBed.configureTestingModule({declarations: [TestComponent], imports: [NgbTypeaheadModule.forRoot()]});
   });
 
   describe('display', () => {
-
     it('should display results with the first row active', () => {
       const fixture =
           createTestComponent('<ngb-typeahead-window [results]="results" [term]="term"></ngb-typeahead-window>');
@@ -43,7 +41,6 @@ describe('ngb-typeahead-window', () => {
   });
 
   describe('active row', () => {
-
     it('should change active row on prev / next method call', () => {
       const html = `
            <button (click)="w.next()">+</button>
@@ -178,7 +175,6 @@ describe('ngb-typeahead-window', () => {
   });
 
   describe('accessibility', () => {
-
     function getWindow(element): HTMLDivElement {
       return <HTMLDivElement>element.querySelector('ngb-typeahead-window.dropdown-menu');
     }
@@ -198,9 +194,7 @@ describe('ngb-typeahead-window', () => {
         expect(buttons[i].getAttribute('role')).toBe('option');
       }
     });
-
   });
-
 });
 
 @Component({selector: 'test-cmp', template: ''})
@@ -212,5 +206,7 @@ class TestComponent {
 
   @ViewChild(NgbTypeaheadWindow) popup: NgbTypeaheadWindow;
 
-  formatterFn = (result) => { return result.toUpperCase(); };
+  formatterFn = (result) => {
+    return result.toUpperCase();
+  };
 }

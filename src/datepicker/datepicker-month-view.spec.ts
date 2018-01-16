@@ -1,13 +1,13 @@
-import {TestBed, ComponentFixture} from '@angular/core/testing';
+import {Component} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+
 import {createGenericTestComponent, isBrowser} from '../test/common';
 
-import {Component} from '@angular/core';
-
-import {NgbDatepickerModule} from './datepicker.module';
+import {NgbDatepickerDayView} from './datepicker-day-view';
 import {NgbDatepickerMonthView} from './datepicker-month-view';
 import {MonthViewModel} from './datepicker-view-model';
+import {NgbDatepickerModule} from './datepicker.module';
 import {NgbDate} from './ngb-date';
-import {NgbDatepickerDayView} from './datepicker-day-view';
 
 const createTestComponent = (html: string) =>
     createGenericTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -40,7 +40,6 @@ function expectDates(element: HTMLElement, dates: string[]) {
 }
 
 describe('ngb-datepicker-month-view', () => {
-
   beforeEach(() => {
     TestBed.overrideModule(NgbDatepickerModule, {set: {exports: [NgbDatepickerMonthView, NgbDatepickerDayView]}});
     TestBed.configureTestingModule({declarations: [TestComponent], imports: [NgbDatepickerModule.forRoot()]});
@@ -207,7 +206,6 @@ describe('ngb-datepicker-month-view', () => {
     fixture.detectChanges();
     expectDates(fixture.nativeElement, ['', '1', '2', '3', '4', '']);
   });
-
 });
 
 @Component({selector: 'test-cmp', template: ''})
@@ -220,28 +218,29 @@ class TestComponent {
     weekdays: [1],
     weeks: [{
       number: 2,
-      days: [
-        {
-          date: new NgbDate(2016, 7, 22),
-          context: {
-            currentMonth: 7,
-            date: {year: 2016, month: 7, day: 22},
-            disabled: false,
-            focused: false,
-            selected: false
-          }
-        },
-        {
-          date: new NgbDate(2016, 8, 23),
-          context: {
-            currentMonth: 7,
-            date: {year: 2016, month: 8, day: 23},
-            disabled: false,
-            focused: false,
-            selected: false
-          }
-        }
-      ]
+      days:
+          [
+            {
+              date: new NgbDate(2016, 7, 22),
+              context: {
+                currentMonth: 7,
+                date: {year: 2016, month: 7, day: 22},
+                disabled: false,
+                focused: false,
+                selected: false
+              }
+            },
+            {
+              date: new NgbDate(2016, 8, 23),
+              context: {
+                currentMonth: 7,
+                date: {year: 2016, month: 8, day: 23},
+                disabled: false,
+                focused: false,
+                selected: false
+              }
+            }
+          ]
     }]
   };
 
@@ -251,112 +250,117 @@ class TestComponent {
     year: 2016,
     number: 8,
     weekdays: [1, 2],
-    weeks: [
-      // month: 7, 8
-      {
-        number: 2,
-        days: [
+    weeks:
+        [
+          // month: 7, 8
           {
-            date: new NgbDate(2016, 7, 4),
-            context: {
-              currentMonth: 8,
-              date: {year: 2016, month: 7, day: 4},
-              disabled: false,
-              focused: false,
-              selected: false
-            }
+            number: 2,
+            days:
+                [
+                  {
+                    date: new NgbDate(2016, 7, 4),
+                    context: {
+                      currentMonth: 8,
+                      date: {year: 2016, month: 7, day: 4},
+                      disabled: false,
+                      focused: false,
+                      selected: false
+                    }
+                  },
+                  {
+                    date: new NgbDate(2016, 8, 1),
+                    context: {
+                      currentMonth: 8,
+                      date: {year: 2016, month: 8, day: 1},
+                      disabled: false,
+                      focused: false,
+                      selected: false
+                    }
+                  }
+                ]
           },
+          // month: 8, 8
           {
-            date: new NgbDate(2016, 8, 1),
-            context: {
-              currentMonth: 8,
-              date: {year: 2016, month: 8, day: 1},
-              disabled: false,
-              focused: false,
-              selected: false
-            }
+            number: 3,
+            days:
+                [
+                  {
+                    date: new NgbDate(2016, 8, 2),
+                    context: {
+                      currentMonth: 8,
+                      date: {year: 2016, month: 8, day: 2},
+                      disabled: false,
+                      focused: false,
+                      selected: false
+                    }
+                  },
+                  {
+                    date: new NgbDate(2016, 8, 3),
+                    context: {
+                      currentMonth: 8,
+                      date: {year: 2016, month: 8, day: 3},
+                      disabled: false,
+                      focused: false,
+                      selected: false
+                    }
+                  }
+                ]
+          },
+          // month: 8, 9
+          {
+            number: 3,
+            days:
+                [
+                  {
+                    date: new NgbDate(2016, 8, 4),
+                    context: {
+                      currentMonth: 8,
+                      date: {year: 2016, month: 8, day: 4},
+                      disabled: false,
+                      focused: false,
+                      selected: false
+                    }
+                  },
+                  {
+                    date: new NgbDate(2016, 9, 1),
+                    context: {
+                      currentMonth: 8,
+                      date: {year: 2016, month: 9, day: 1},
+                      disabled: false,
+                      focused: false,
+                      selected: false
+                    }
+                  }
+                ]
+          },
+          // month: 9, 9 -> to collapse
+          {
+            number: 4,
+            days:
+                [
+                  {
+                    date: new NgbDate(2016, 9, 2),
+                    context: {
+                      currentMonth: 8,
+                      date: {year: 2016, month: 9, day: 2},
+                      disabled: false,
+                      focused: false,
+                      selected: false
+                    }
+                  },
+                  {
+                    date: new NgbDate(2016, 9, 3),
+                    context: {
+                      currentMonth: 8,
+                      date: {year: 2016, month: 9, day: 3},
+                      disabled: false,
+                      focused: false,
+                      selected: false
+                    }
+                  }
+                ]
           }
         ]
-      },
-      // month: 8, 8
-      {
-        number: 3,
-        days: [
-          {
-            date: new NgbDate(2016, 8, 2),
-            context: {
-              currentMonth: 8,
-              date: {year: 2016, month: 8, day: 2},
-              disabled: false,
-              focused: false,
-              selected: false
-            }
-          },
-          {
-            date: new NgbDate(2016, 8, 3),
-            context: {
-              currentMonth: 8,
-              date: {year: 2016, month: 8, day: 3},
-              disabled: false,
-              focused: false,
-              selected: false
-            }
-          }
-        ]
-      },
-      // month: 8, 9
-      {
-        number: 3,
-        days: [
-          {
-            date: new NgbDate(2016, 8, 4),
-            context: {
-              currentMonth: 8,
-              date: {year: 2016, month: 8, day: 4},
-              disabled: false,
-              focused: false,
-              selected: false
-            }
-          },
-          {
-            date: new NgbDate(2016, 9, 1),
-            context: {
-              currentMonth: 8,
-              date: {year: 2016, month: 9, day: 1},
-              disabled: false,
-              focused: false,
-              selected: false
-            }
-          }
-        ]
-      },
-      // month: 9, 9 -> to collapse
-      {
-        number: 4,
-        days: [
-          {
-            date: new NgbDate(2016, 9, 2),
-            context: {
-              currentMonth: 8,
-              date: {year: 2016, month: 9, day: 2},
-              disabled: false,
-              focused: false,
-              selected: false
-            }
-          },
-          {
-            date: new NgbDate(2016, 9, 3),
-            context: {
-              currentMonth: 8,
-              date: {year: 2016, month: 9, day: 3},
-              disabled: false,
-              focused: false,
-              selected: false
-            }
-          }
-        ]
-      }
-    ]
   };
 
   showWeekdays = true;

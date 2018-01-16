@@ -1,13 +1,16 @@
-import {NgbCalendarIslamicCivil} from './ngb-calendar-islamic-civil';
-import {NgbCalendarHijri} from './ngb-calendar-hijri';
-import {NgbDate} from '../ngb-date';
-import {NgbPeriod} from '../ngb-calendar';
 import {Injectable} from '@angular/core';
+
+import {NgbPeriod} from '../ngb-calendar';
+import {NgbDate} from '../ngb-date';
+
+import {NgbCalendarHijri} from './ngb-calendar-hijri';
+import {NgbCalendarIslamicCivil} from './ngb-calendar-islamic-civil';
 
 /**
  * Umalqura calendar is one type of Hijri calendars used in islamic countries.
  * This Calendar is used by Saudi Arabia for administrative purpose.
- * Unlike tabular calendars, the algorithm involves astronomical calculation, but it's still deterministic.
+ * Unlike tabular calendars, the algorithm involves astronomical calculation,
+ * but it's still deterministic.
  * http://cldr.unicode.org/development/development-process/design-proposals/islamic-calendar-types
  */
 
@@ -151,9 +154,9 @@ function getDaysDiff(date1: Date, date2: Date): number {
 @Injectable()
 export class NgbCalendarIslamicUmalqura extends NgbCalendarHijri {
   /**
-  * Returns the equivalent islamic(Umalqura) date value for a give input Gregorian date.
-  * `gdate` is s JS Date to be converted to Hijri.
-  */
+   * Returns the equivalent islamic(Umalqura) date value for a give input
+   * Gregorian date. `gdate` is s JS Date to be converted to Hijri.
+   */
   fromGregorian(gDate: Date): NgbDate {
     let hDay = 1, hMonth = 0, hYear = 1300;
     let daysDiff = getDaysDiff(gDate, GREGORIAN_FIRST_DATE);
@@ -184,8 +187,8 @@ export class NgbCalendarIslamicUmalqura extends NgbCalendarHijri {
     }
   }
   /**
-  * Converts the current Hijri date to Gregorian.
-  */
+   * Converts the current Hijri date to Gregorian.
+   */
   toGregorian(hijriDate: NgbDate): Date {
     const hYear = hijriDate.year;
     const hMonth = hijriDate.month - 1;
@@ -208,10 +211,10 @@ export class NgbCalendarIslamicUmalqura extends NgbCalendarHijri {
     return gDate;
   }
   /**
-  * Returns the number of days in a specific Hijri month.
-  * `month` is 1 for Muharram, 2 for Safar, etc.
-  * `year` is any Hijri year.
-  */
+   * Returns the number of days in a specific Hijri month.
+   * `month` is 1 for Muharram, 2 for Safar, etc.
+   * `year` is any Hijri year.
+   */
   getDaysInIslamicMonth(month: number, year: number): number {
     if (year >= HIJRI_BEGIN && year <= HIJRI_END) {
       const pos = year - HIJRI_BEGIN;
@@ -240,7 +243,9 @@ export class NgbCalendarIslamicUmalqura extends NgbCalendarHijri {
     }
   }
 
-  getPrev(date: NgbDate, period: NgbPeriod = 'd', number = 1) { return this.getNext(date, period, -number); }
+  getPrev(date: NgbDate, period: NgbPeriod = 'd', number = 1) {
+    return this.getNext(date, period, -number);
+  }
 
   getWeekday(date: NgbDate) {
     const day = this.toGregorian(date).getDay();
@@ -264,5 +269,7 @@ export class NgbCalendarIslamicUmalqura extends NgbCalendarHijri {
     return Math.floor(Math.round((time - MuhDate.getTime()) / ONE_DAY) / 7) + 1;
   }
 
-  getToday(): NgbDate { return this.fromGregorian(new Date()); }
+  getToday(): NgbDate {
+    return this.fromGregorian(new Date());
+  }
 }

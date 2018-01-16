@@ -1,9 +1,12 @@
-import {Component, EventEmitter, Input, Output, OnChanges, ChangeDetectionStrategy, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+
 import {getValueInRange, isNumber} from '../util/util';
+
 import {NgbPaginationConfig} from './pagination-config';
 
 /**
- * A directive that will take care of visualising a pagination bar and enable / disable buttons correctly!
+ * A directive that will take care of visualising a pagination bar and enable /
+ * disable buttons correctly!
  */
 @Component({
   selector: 'ngb-pagination',
@@ -66,7 +69,8 @@ export class NgbPagination implements OnChanges {
   @Input() directionLinks: boolean;
 
   /**
-   *  Whether to show ellipsis symbols and first/last page numbers when maxSize > number of pages
+   *  Whether to show ellipsis symbols and first/last page numbers when maxSize
+   * > number of pages
    */
   @Input() ellipses: boolean;
 
@@ -105,7 +109,7 @@ export class NgbPagination implements OnChanges {
   /**
    * Pagination display size: small or large
    */
-  @Input() size: 'sm' | 'lg';
+  @Input() size: 'sm'|'lg';
 
   constructor(config: NgbPaginationConfig) {
     this.disabled = config.disabled;
@@ -118,15 +122,25 @@ export class NgbPagination implements OnChanges {
     this.size = config.size;
   }
 
-  hasPrevious(): boolean { return this.page > 1; }
+  hasPrevious(): boolean {
+    return this.page > 1;
+  }
 
-  hasNext(): boolean { return this.page < this.pageCount; }
+  hasNext(): boolean {
+    return this.page < this.pageCount;
+  }
 
-  selectPage(pageNumber: number): void { this._updatePages(pageNumber); }
+  selectPage(pageNumber: number): void {
+    this._updatePages(pageNumber);
+  }
 
-  ngOnChanges(changes: SimpleChanges): void { this._updatePages(this.page); }
+  ngOnChanges(changes: SimpleChanges): void {
+    this._updatePages(this.page);
+  }
 
-  isEllipsis(pageNumber): boolean { return pageNumber === -1; }
+  isEllipsis(pageNumber): boolean {
+    return pageNumber === -1;
+  }
 
   /**
    * Appends ellipses and first/last page number to the displayed pages

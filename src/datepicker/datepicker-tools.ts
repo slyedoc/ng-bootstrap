@@ -1,7 +1,8 @@
-import {NgbDate} from './ngb-date';
+import {isDefined} from '../util/util';
+
 import {DayViewModel, MonthViewModel, NgbMarkDisabled} from './datepicker-view-model';
 import {NgbCalendar} from './ngb-calendar';
-import {isDefined} from '../util/util';
+import {NgbDate} from './ngb-date';
 
 export function isChangedDate(prev: NgbDate, next: NgbDate) {
   return !dateComparator(prev, next);
@@ -122,11 +123,13 @@ export function getFirstViewDate(calendar: NgbCalendar, date: NgbDate, firstDayO
   let today = new NgbDate(date.year, date.month, date.day);
   let yesterday = calendar.getPrev(today);
 
-  const firstDayOfCurrentMonthIsAlsoFirstDayOfWeek =
-      () => { return today.month !== yesterday.month && firstDayOfWeek === calendar.getWeekday(today); };
+  const firstDayOfCurrentMonthIsAlsoFirstDayOfWeek = () => {
+    return today.month !== yesterday.month && firstDayOfWeek === calendar.getWeekday(today);
+  };
 
-  const reachedTheFirstDayOfTheLastWeekOfPreviousMonth =
-      () => { return today.month !== currentMonth && firstDayOfWeek === calendar.getWeekday(today); };
+  const reachedTheFirstDayOfTheLastWeekOfPreviousMonth = () => {
+    return today.month !== currentMonth && firstDayOfWeek === calendar.getWeekday(today);
+  };
 
   // going back in time
   while (!reachedTheFirstDayOfTheLastWeekOfPreviousMonth() && !firstDayOfCurrentMonthIsAlsoFirstDayOfWeek()) {

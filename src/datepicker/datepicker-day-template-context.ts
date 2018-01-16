@@ -1,6 +1,7 @@
 import {NgbDateStruct} from './ngb-date-struct';
 /**
- * Context for the datepicker 'day' template in case you want to override the default one
+ * Context for the datepicker 'day' template in case you want to override the
+ * default one
  */
 export interface DayTemplateContext {
   /**

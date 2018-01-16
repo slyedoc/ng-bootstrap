@@ -1,4 +1,4 @@
-import {Directive, forwardRef, Input, Renderer2, ElementRef, OnDestroy} from '@angular/core';
+import {Directive, ElementRef, forwardRef, Input, OnDestroy, Renderer2} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import {NgbButtonLabel} from './label';
@@ -12,8 +12,8 @@ const NGB_RADIO_VALUE_ACCESSOR = {
 let nextId = 0;
 
 /**
- * Easily create Bootstrap-style radio buttons. A value of a selected button is bound to a variable
- * specified via ngModel.
+ * Easily create Bootstrap-style radio buttons. A value of a selected button is
+ * bound to a variable specified via ngModel.
  */
 @Directive({selector: '[ngbRadioGroup]', host: {'role': 'group'}, providers: [NGB_RADIO_VALUE_ACCESSOR]})
 export class NgbRadioGroup implements ControlValueAccessor {
@@ -21,12 +21,17 @@ export class NgbRadioGroup implements ControlValueAccessor {
   private _value = null;
   private _disabled: boolean;
 
-  get disabled() { return this._disabled; }
-  set disabled(isDisabled: boolean) { this.setDisabledState(isDisabled); }
+  get disabled() {
+    return this._disabled;
+  }
+  set disabled(isDisabled: boolean) {
+    this.setDisabledState(isDisabled);
+  }
 
   /**
-   * The name of the group. Unless enclosed inputs specify a name, this name is used as the name of the
-   * enclosed inputs. If not specified, a name is generated automatically.
+   * The name of the group. Unless enclosed inputs specify a name, this name is
+   * used as the name of the enclosed inputs. If not specified, a name is
+   * generated automatically.
    */
   @Input() name = `ngb-radio-${nextId++}`;
 
@@ -38,28 +43,42 @@ export class NgbRadioGroup implements ControlValueAccessor {
     this.onChange(radio.value);
   }
 
-  onRadioValueUpdate() { this._updateRadiosValue(); }
+  onRadioValueUpdate() {
+    this._updateRadiosValue();
+  }
 
-  register(radio: NgbRadio) { this._radios.add(radio); }
+  register(radio: NgbRadio) {
+    this._radios.add(radio);
+  }
 
-  registerOnChange(fn: (value: any) => any): void { this.onChange = fn; }
+  registerOnChange(fn: (value: any) => any): void {
+    this.onChange = fn;
+  }
 
-  registerOnTouched(fn: () => any): void { this.onTouched = fn; }
+  registerOnTouched(fn: () => any): void {
+    this.onTouched = fn;
+  }
 
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled;
     this._updateRadiosDisabled();
   }
 
-  unregister(radio: NgbRadio) { this._radios.delete(radio); }
+  unregister(radio: NgbRadio) {
+    this._radios.delete(radio);
+  }
 
   writeValue(value) {
     this._value = value;
     this._updateRadiosValue();
   }
 
-  private _updateRadiosValue() { this._radios.forEach((radio) => radio.updateValue(this._value)); }
-  private _updateRadiosDisabled() { this._radios.forEach((radio) => radio.updateDisabled()); }
+  private _updateRadiosValue() {
+    this._radios.forEach((radio) => radio.updateValue(this._value));
+  }
+  private _updateRadiosDisabled() {
+    this._radios.forEach((radio) => radio.updateDisabled());
+  }
 }
 
 
@@ -83,13 +102,14 @@ export class NgbRadio implements OnDestroy {
   private _value: any = null;
 
   /**
-   * The name of the input. All inputs of a group should have the same name. If not specified,
-   * the name of the enclosing group is used.
+   * The name of the input. All inputs of a group should have the same name. If
+   * not specified, the name of the enclosing group is used.
    */
   @Input() name: string;
 
   /**
-   * You can specify model value of a given radio by binding to the value property.
+   * You can specify model value of a given radio by binding to the value
+   * property.
    */
   @Input('value')
   set value(value: any) {
@@ -117,13 +137,21 @@ export class NgbRadio implements OnDestroy {
     }
   }
 
-  get checked() { return this._checked; }
+  get checked() {
+    return this._checked;
+  }
 
-  get disabled() { return this._group.disabled || this._disabled; }
+  get disabled() {
+    return this._group.disabled || this._disabled;
+  }
 
-  get value() { return this._value; }
+  get value() {
+    return this._value;
+  }
 
-  get nameAttr() { return this.name || this._group.name; }
+  get nameAttr() {
+    return this.name || this._group.name;
+  }
 
   constructor(
       private _group: NgbRadioGroup, private _label: NgbButtonLabel, private _renderer: Renderer2,
@@ -131,14 +159,20 @@ export class NgbRadio implements OnDestroy {
     this._group.register(this);
   }
 
-  ngOnDestroy() { this._group.unregister(this); }
+  ngOnDestroy() {
+    this._group.unregister(this);
+  }
 
-  onChange() { this._group.onRadioChange(this); }
+  onChange() {
+    this._group.onRadioChange(this);
+  }
 
   updateValue(value) {
     this._checked = this.value === value;
     this._label.active = this._checked;
   }
 
-  updateDisabled() { this._label.disabled = this.disabled; }
+  updateDisabled() {
+    this._label.disabled = this.disabled;
+  }
 }
